@@ -6,7 +6,9 @@
 
 The JSON-LD API makes it necessary to have unique mapping from JSON names to 
 IRIs, otherwise information could be lost in the expand / compact or
-serialization to Ntriples operations. Assume that we are defining a 
+serialization to RDF operations. 
+
+In the following example, assume that we are defining a 
 JSON-LD context where we wish to extract from a document someones name
 and occupation. The context could be defined as shown in this JSON 
 document:
@@ -18,12 +20,12 @@ document:
       "xsd": "http://www.w3.org/2001/XMLSchema#",
       "name": "xsd:string",
       "occupation": "xsd:string"
-   },
+   
    "name": "Donald Trump",
    "occupation": "President"
 }
 ```
-With the JSON-LD RDF serialization algorithm, the above document is transformed to
+With the JSON-LD RDF serialization algorithm, the above document is serialized to
 ```
 _:b0 <http://www.w3.org/2001/XMLSchema#string> "Donald Trump" .
 _:b0 <http://www.w3.org/2001/XMLSchema#string> "President" .
@@ -50,7 +52,7 @@ A more appropriate way to represent `name` and `occupation` might be:
 
 ```
 
-which is RDF serialized to:
+which would be RDF serialized to:
 
 ```
 _:b0 <http://schema.org/name> "Donald Trump" .
