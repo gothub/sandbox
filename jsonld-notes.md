@@ -56,3 +56,7 @@ _:b0 <http://schema.org/name> "Donald Trump" .
 _:b0 <http://schema.org/occupation> "President" .
 ```
 
+Not sure why the JSON-LD RDF serialization doesn't append `^^http://www.w3.org/2001/XMLSchema/string`
+to the objects, maybe this is an RDF convention to not append this if the value is enclosed
+in quotes.
+
