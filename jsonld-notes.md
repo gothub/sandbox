@@ -27,6 +27,9 @@ _:b0 <http://www.w3.org/2001/XMLSchema#string> "Donald Trump" .
 _:b0 <http://www.w3.org/2001/XMLSchema#string> "President" .
 ```
 
+With the resulting RDF, it is not possible determine the values for
+`name` and `occupation`.
+
 A more appropriate way to represent `name` and `occupation` might be:
 
 ```
