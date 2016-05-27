@@ -1,0 +1,6 @@
+#!/bin/bash
+# This script is called by R package installation when
+# the command "R CMD INSTALL" is invoked.
+
+cd inst && ./configure && make all
+cd ..

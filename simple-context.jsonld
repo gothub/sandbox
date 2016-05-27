@@ -1,0 +1,8 @@
+{
+   "@context":
+   {
+      "schema": "http://schema.org/",
+      "name": "schema:Text",
+      "occupation": "schema:Text"
+   }
+}

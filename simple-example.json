@@ -1,0 +1,10 @@
+{
+   "@context":
+   {
+      "schema": "http://schema.org/",
+      "name": "schema:Text",
+      "occupation": "schema:Text"
+   }
+   "name": "Donald Trump"
+   "occupation": "President"
+}
