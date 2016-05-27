@@ -4,10 +4,9 @@
 
 ### Context
 
-The JSON-LD context appears to require that the mapping from JSON names to 
-IRIs is unique, otherwise information is lost in the expand / compact or
-transformation to Ntriples
-operations, e.g. the following object 
+The JSON-LD API makes it necessary to have unique mapping from JSON names to 
+IRIs, otherwise information could be lost in the expand / compact or
+transformation to Ntriples operations, e.g. the following object:
 
 ```
 {
