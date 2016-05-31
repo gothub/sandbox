@@ -73,3 +73,39 @@ Now each item can be queried based on the predicate.
 
 ## Testing a JSON-LD context for validity
 
+## Identifying Nodes
+
+```
+{
+   "@context":
+   {
+      "name": "http://xmlns.com/foaf/0.1/name",
+      "homepage": {
+        "@id": "http://xmlns.com/foaf/0.1/homepage",
+        "@type": "@id"
+      }
+   },
+   "name": "Manu Sporny",
+   "homepage": "http://manu.sporny.org/"
+}
+```
+
+```
+_:b0 <http://xmlns.com/foaf/0.1/homepage> <http://manu.sporny.org/> .
+_:b0 <http://xmlns.com/foaf/0.1/name> "Manu Sporny" .
+```
+
+```
+{
+  "@context":
+  {
+    "name": "http://schema.org/name"
+  },
+  "@id": "http://me.markus-lanthaler.com/",
+  "name": "Markus Lanthaler"
+}
+
+```
+<http://me.markus-lanthaler.com/> <http://schema.org/name> "Markus Lanthaler" .
+```
+```
