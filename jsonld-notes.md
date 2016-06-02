@@ -2,7 +2,7 @@
 
 ## JSON-LD API
 
-### Context
+### Context Design Considerations
 
 The JSON-LD context appears to require that the mapping from JSON names to 
 IRIs is unique, otherwise information is lost in the expand / compact or
