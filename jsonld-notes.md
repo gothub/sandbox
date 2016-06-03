@@ -4,9 +4,16 @@
 
 ### Context Design Considerations
 
-The JSON-LD context appears to require that the mapping from JSON names to 
-IRIs is unique, otherwise information is lost in the expand / compact or
-serialization to RDF N-Quads, e.g. the following object:
+The JSON-LD API requires that each value in the context must
+be an IRI. 
+
+Also, the values defined appear much more useful if they
+are unique in the context, i.e. represent unique concepts, otherwise data may 
+be lost during the JSON-LD transformations available with the API.
+
+The following example illustrates how information can be lost when a
+document is serialized to RDF using a context that contains values 
+that are not unique:
 
 ```
 {
@@ -19,7 +26,8 @@ serialization to RDF N-Quads, e.g. the following object:
    },
    "name": "Donald Trump",
    "occupation": "Real estate developer",
-   "age": 69
+   "age": 69,
+   "politicalParty": "Republican"
 }
 ```
 is serialized into RDF as:
@@ -30,24 +38,33 @@ _:b0 <http://www.w3.org/2001/XMLSchema#string> "Donald Trump" .
 _:b0 <http://www.w3.org/2001/XMLSchema#string> "Real estate developer" .
 ```
 
-So now is it difficult to distinguish `name` and `occupation` by inspecting the RDF N-Quads.
-Also, the `xsd:integer` type has been assigned to both the predicate and the datatype appended 
-to the object.
+The serialized RDF makes it difficult to query for `name` and `occupation`. 
 
-Also, when this context / document are expanded then compacted, the resulting document is equally
-difficult to parse:
+Also the `politicalParty` term is silently dropped because there is no entry for this name
+in the context and it is not considered linked data by the JSON-LD API.
+
+When this context / document are expanded then compacted, the resulting document now shows
+two values for `name`, because the context is ambiguous regarding how to compact an `xsd:string`,
+as it contains two mappings for this:
 ```
 {
-  "http://www.w3.org/2001/XMLSchema#integer": 69,
-  "http://www.w3.org/2001/XMLSchema#string": [
+  "@context": {
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+    "name": "xsd:string",
+    "occupation": "xsd:string",
+    "age": "xsd:integer"
+  },
+  "age": 69,
+  "name": [
     "Donald Trump",
     "Real estate developer"
   ]
 }
 ```
 
-
-A more appropriate way to represent `name` and `occupation` might be:
+A more appropriate way to represent `name` and `occupation` is to have 
+unique mappings for these concepts using a context such as the 
+following:
 
 ```
 {    
@@ -81,13 +98,38 @@ _:b0 <http://schema.org/name> "Donald Trump" .
 _:b0 <http://schema.org/occupation> "Real estate developer" .
 ```
 
-Now each item can be queried based on the predicate.
+Now the `name` and `occupation` can be easily extracted with a query based on the predicate.
 
-## Use case for JSON-LD expansion / compaction APIs
+Also, when this document is expanded with the new context then compacted using the same context,
+the equivalent of the original document is returned:
 
-## Testing a JSON-LD context for validity
+```
+{
+  "@context": {
+    "schema": "http://schema.org/",
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+    "name": {
+      "@id": "schema:name",
+      "@type": "xsd:string"
+    },
+    "occupation": {
+      "@id": "schema:occupation",
+      "@type": "xsd:string"
+    },
+    "age": {
+      "@id": "schema:age",
+      "@type": "xsd:integer"
+    }
+  },
+  "age": 69,
+  "name": "Donald Trump",
+  "occupation": "Real estate developer"
+}
+```
 
 ## Identifying Nodes
+
+[ this section not yet completed, not ready for review ]
 
 ```
 {
