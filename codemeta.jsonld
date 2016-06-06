@@ -5,32 +5,67 @@
       "dcterms": "http://purl.org/dc/terms/",
       "xsd": "http://www.w3.org/2001/XMLSchema#",
       "Code": "schema:Code",
-      "accessList": "dcterms:accessRights", 
       "agent":
       {
-          "@id": "schema:author",
+          "@id": "schema:agent",
           "@type": "@id"
       },
-      "email": "schema:email",
-      "affiliation": "schema:affiliation",
-      "isCitable": "schema:isCitable",
-      "isMaintainer": "schema:ismaintainer",
-      "isRightsHolder": "schema:isRightsHolder",
-      "namespace": "schema:namespace",
+      "Person":
+      {
+          "@id": "schema:Person",
+          "@type": "@id"
+      },
+      "Organization":
+      {
+          "@id": "schema:Organization",
+          "@type": "@id"
+      },
+      "email": 
+      {
+          "@id": "schema:email",
+          "@type": "xsd:string"
+      }
+      "name": 
+      {
+          "@id": "schema:name",
+          "@type": "xsd:string"
+      }
+      "affiliation": 
+      {
+          "@id": "schema:affiliation",
+          "@type": "xsd:string"
+      }
+      "isCitable": 
+      {
+          "@id": "codemeta:isCitable",
+          "@type": "xsd:boolean",
+      },
+      "isMaintainer": 
+      {
+          "@id": "codemeta:isMaintainer",
+          "@type": "xsd:boolean",
+      },
+      "isRightsHolder": 
+      {
+          "@id": "codemeta:isRightsHolder",
+          "@type": "xsd:boolean",
+      },
+      "namespace": "codemeta:namespace",
       "hasRole": 
       {
-        "@id": "schema:role",
+        "@id": "codemeta:Role",
         "@type": "@id"
       },
-      "roleCode": "schema:roleCode",
-      "buildInstructions": "schema:buildInstructions",
-      "citationCount": "schema:citationCount",
-      "contributor":
+      "roleCode": "codemeta:roleCode",
+      "buildInstructions": 
       {
-          "@id": "schema:contributor",
-          "@type": "@id"
+          "@id": "codemeta:buildInstructions",
+          "@type": "xsd:anyURI",
+      }
+      "contIntegration": {
+        "@id": "codemeta:contIntegration",
+        "@type": "xsd:anyURI" 
       },
-      "contIntegration": "schema:contIntegration" ,
       "identifier":
       {
          "@id": "dcterms:identifier",
@@ -39,43 +74,121 @@
       "codeRepository":
       {
          "@id": "schema:codeRepository",
-         "@type": "@id"
+         "@type": "schema:URL"
       },
-      "email": "schema:email",
-      "name": "schema:name",
-      "dateCreated": "schema:dateCreated",
-      "dateModified": "schema:dateModified",
-      "datePublished": "schema:datePublished",
+      "dateCreated": 
+      {
+          "@id": "schema:dateCreated",
+          "@type": "xsd:dateTime"
+      },
+      "dateModified": 
+      {
+          "@id": "schema:dateModified",
+          "@type": "xsd:dateTime"
+      },
+      "datePublished": 
+      {
+          "@id": "schema:datePublished",
+          "@type": "xsd:dateTime"
+      },
       "dependency" : "schema:requirements",
-      "description": "schema:description",
-      "docsCoverage": "schema:docsCoverage",
-      "downloadCount": "schema:downloadCount",
-      "embargoDate": "schema:embargoDate",
-      "isAutomatedBuild": "schema:isAutomateBuild",
-      "tags": "schema:keywords",
-      "package": "schema:package",
+      "description": 
+      {
+          "@id": "schema:description",
+          "@type": "xsd:string"
+      },
+      "docsCoverage": 
+      {
+          "@id": "codemeta:docsCoverage",
+          "@type": "xsd:string"
+      },
+      "downloadCount": 
+      {
+          "@id": "codemeta:downloadCount",
+          "@type": "xsd:integer"
+      },
+      "embargoDate": {
+          "@id": "codemeta:embargoDate",
+          "@type": "xsd:dataTime"
+      },
+      "isAutomatedBuild": {
+          "@id": "codemeta:isAutomateBuild",
+          "@type": "xsd:boolean"
+      },
+      "tags": {
+          "@id": "schema:keywords",
+      },
       "publisher": "schema:publisher",
       "license": "schema:license",
-      "interactionMethod": "schema:interactionMethod",
-      "inputs": "schema:inputs",
-      "outputs": "schema:outputs",
-      "function": "schema:function",
-      "funding": "schema:funding",
+      "interactionMethod": "codemeta:interactionMethod",
+      "inputs": "codemeta:inputs",
+      "outputs": "codemeta:outputs",
+      "function": "codemeta:function",
+      "funding": "codemeta:funding",
       "objectType": "dcterms:type",
       "programmingLanguage": "schema:programmingLanguage",
-      "readme": "schema:readme",
-      "issueTracker": "schema:issueTracker",
+      "readme": {
+          "@id": "codemeta:readme",
+          "@type:", "xsd:anyURI"
+      },
+      "issueTracker": 
+      {
+          "@id": "codemeta:issueTracker",
+          "@type": "xsd:anyURI"
+      },
       "relatedLink": "schema:relatedLink",
+          "@id": "codemeta:issueTracker",
+          "@type": "xsd:anyURI"
+      },
       "relatedPublications": "schema:relatedPublications",
-      "relationship": "schema:relationship",
-      "softwareCitation": "schema:softwareCitation",
-      "suggests": "schema:suggests",
-      "softwarePaperCitation": "schema:softwarePaperCitation",
-      "testCoverage": "schema:testCoverage",
-      "title": "dcterms:title",
-      "version": "schema:version",
-      "uploadedBy": "schema:Person",
-      "zippedCode": "schema:zippedCode",
+          "@id": "codemeta:issueTracker",
+          "@type": "xsd:string"
+      },
+      "relationship": 
+      {
+          "@id": "codemeta:relationship",
+          "@type": "xsd:string"
+      },
+      "softwareCitation": 
+      {    
+          "@id": "codemeta:softwareCitation",
+          "@type": "xsd:string"
+      },
+      "suggests": 
+      {
+          "@id": "schema:suggests",
+          "@type": "xsd:string"
+      },
+      "softwarePaperCitation": 
+      {
+          "@id": "codemeta:softwarePaperCitation",
+          "@type": "xsd:string"
+      },
+      "testCoverage": 
+      { 
+          "@id": "codemeta:testCoverage",
+          "@type": "xsd:integer"
+      },
+      "title": 
+      {
+          "@id": "dcterms:title",
+          "@type": "xsd:string"
+      },
+      "version": 
+      {
+          "@id": "schema:version",
+          "@type": "xsd:string"
+      },
+      "uploadedBy": 
+      {
+          "@id": "schema:Person",
+          "@id": "xsd:string"
+      },
+      "zippedCode": 
+      {
+          "@id": "codemeta:zippedCode",
+          "@type": "xsd:anyURI"
+      },
       "URL": "schema:URL"
    }
 }
