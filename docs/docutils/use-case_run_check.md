@@ -19,14 +19,15 @@ check is run. The quality check results are stored in the repository and also re
 - The quality check has an implementation for the metadata dialect contained in data package that is being checked.
 
 ### Post Conditions
-- Quality check results are stored on the repository for the requested data package, check and metadata dialect
+- Quality check results are stored on the repository for the requested data package, check and metadata dialect.
+- A Quality Check report has been returned to the Remote Client.
 
 ### Trigger
 
-A quality check is requested from the DataONE Quality Service.
+A quality check request is sent to the DataONE Quality Service.
 
-
-![Alt text](./images/mqe-sequence-run_single_check.png)
+![Alt text](./images/mqe-run-single-check_sequence.txt)
 **Figure 1.** Sequence Diagram for Use Case 'run_check'
 
 ### Notes
+
