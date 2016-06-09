@@ -5,20 +5,21 @@
                 sequenceTitleFontStyle normal
                 sequenceTitleFontName Lucida Bright
         }
-        title: Run a Single Quality Check (run_check)
+        title: Run a Quality Check for a Data Package (run_check)
 
         "Remote Client" -> "DataONE Quality Service": MN.QualityService(checkId, pid)
         activate "Remote Client"
+        note right: pid specified a package id
         activate "DataONE Quality Service"
         "DataONE Quality Service" -> MNodeService : runQC(checkId, pid)
         activate "MNodeService"
-        MNodeService -> QCController : runCheck(checkId, pid)
+        loop [ hasAnotherPackageMember > 0]
+        MNodeService -> QCController : runCheck(checkId, metadata, dataset)
         activate QCController
         QCController -> QCMetadataManager : getCheckMetadata(checkId, dialect)
         activate QCMetadataManager
         QCMetadataManager --> QCController : checkMetadata
         deactivate QCMetadataManager
-        loop [ hasAnotherPackageMemmber > 0]
         QCController -> QCDispatcher : dispatchCheck(checkId, dialect, metadata, dataset)
           activate QCDispatcher
           QCDispatcher -> checkImpl : runCheckImpl(metadata, dataset)
