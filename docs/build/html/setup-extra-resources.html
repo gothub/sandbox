@@ -1,0 +1,194 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Resources &mdash; DataONE Generic Member Node None documentation</title>
+    
+    <link rel="stylesheet" href="_static/dataone.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     'None',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/sidebar.js"></script>
+    <link rel="top" title="DataONE Generic Member Node None documentation" href="index.html" />
+    <link rel="up" title="GMN setup overview" href="setup.html" />
+    <link rel="next" title="Authentication and authorization" href="use-authn-and-authz.html" />
+    <link rel="prev" title="Installing on CentOS 5.5" href="setup-extra-centos.html" />
+   
+  
+  <link media="only screen and (max-device-width: 480px)" href="_static/small_dataone.css" type= "text/css" rel="stylesheet" />
+
+  </head>
+  <body role="document">
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="use-authn-and-authz.html" title="Authentication and authorization"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="setup-extra-centos.html" title="Installing on CentOS 5.5"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">DataONE Generic Member Node None documentation</a> &raquo;</li>
+          <li class="nav-item nav-item-1"><a href="setup.html" accesskey="U">GMN setup overview</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="resources">
+<h1>Resources<a class="headerlink" href="#resources" title="Permalink to this headline">¶</a></h1>
+<p>View documentation for Apache2 configuration under Debian GNU/Linux:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>$ zless /usr/share/doc/apache2.2-common/README.Debian.gz
+</pre></div>
+</div>
+<p>Viewing the files involved in the SSL handshake:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">openssl</span> <span class="n">rsa</span> <span class="o">-</span><span class="n">noout</span> <span class="o">-</span><span class="n">text</span> <span class="o">-</span><span class="ow">in</span> <span class="n">server</span><span class="o">.</span><span class="n">key</span>
+<span class="n">openssl</span> <span class="n">req</span> <span class="o">-</span><span class="n">noout</span> <span class="o">-</span><span class="n">text</span> <span class="o">-</span><span class="ow">in</span> <span class="n">server</span><span class="o">.</span><span class="n">csr</span>
+<span class="n">openssl</span> <span class="n">rsa</span> <span class="o">-</span><span class="n">noout</span> <span class="o">-</span><span class="n">text</span> <span class="o">-</span><span class="ow">in</span> <span class="n">ca</span><span class="o">.</span><span class="n">key</span>
+<span class="n">openssl</span> <span class="n">x509</span> <span class="o">-</span><span class="n">noout</span> <span class="o">-</span><span class="n">text</span> <span class="o">-</span><span class="ow">in</span> <span class="n">ca</span><span class="o">.</span><span class="n">crt</span>
+</pre></div>
+</div>
+<p>Overview of the SSL handshake:</p>
+<blockquote>
+<div><a class="reference external" href="http://developer.connectopensource.org/download/attachments/34210577/Ssl_handshake_with_two_way_authentication_with_certificates.png">SSL Handshake</a></div></blockquote>
+<div class="section" id="add-dataone-test-certificate-to-system-wide-trusted-ca-store">
+<h2>Add DataONE test certificate to system wide trusted CA store<a class="headerlink" href="#add-dataone-test-certificate-to-system-wide-trusted-ca-store" title="Permalink to this headline">¶</a></h2>
+<blockquote>
+<div><div class="highlight-default"><div class="highlight"><pre><span></span>$ sudo -s
+$ sudo cp /var/local/dataone/certs/local_ca/ca.crt /usr/share/ca-certificates/dataone-gmn-test-ca.crt
+$ sudo dpkg-reconfigure ca-certificates
+$ sudo update-ca-certificates
+</pre></div>
+</div>
+<p>In the dpkg-reconfigure GUI, enable the dataone-gmn-test-ca.crt.</p>
+</div></blockquote>
+</div>
+<div class="section" id="integration-testing-using-certificates">
+<h2>Integration testing using certificates<a class="headerlink" href="#integration-testing-using-certificates" title="Permalink to this headline">¶</a></h2>
+<p>Create two test certificates signed by the local CA. We simulate valid and
+invalid sessions by using &#8220;valid&#8221; and &#8220;invalid&#8221; strings in the Common Names.</p>
+<blockquote>
+<div><div class="highlight-default"><div class="highlight"><pre><span></span>$ cd /var/local/dataone/certs/local_ca
+$ sudo openssl genrsa -des3 -out test_valid.key 4096
+$ sudo openssl genrsa -des3 -out test_invalid.key 4096
+</pre></div>
+</div>
+<p>Create <a class="reference internal" href="glossary.html#term-csr"><span class="xref std std-term">CSR</span></a>s:</p>
+<p>When prompted for Common Name (CN), type &#8220;test_valid&#8221; for the certificate
+signed with the test_valid key and &#8220;test_invalid&#8221; for the certificate signed
+with the test_invalid key.</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>$ sudo openssl req -new -key test_valid.key -out test_valid.csr
+$ sudo openssl req -new -key test_invalid.key -out test_invalid.csr
+</pre></div>
+</div>
+<p>Sign the <a class="reference internal" href="glossary.html#term-csr"><span class="xref std std-term">CSR</span></a> with the <a class="reference internal" href="glossary.html#term-ca-signing-key"><span class="xref std std-term">CA signing key</span></a>:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>$ sudo openssl x509 -req -days 36500 -in test_valid.csr -CA ca.crt -CAkey ca.key -set_serial 01 -out test_valid.crt
+$ sudo openssl x509 -req -days 36500 -in test_invalid.csr -CA ca.crt -CAkey ca.key -set_serial 01 -out test_invalid.crt
+</pre></div>
+</div>
+<p>Remove passwords from the private keys:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>$ sudo openssl rsa -in test_valid.key -out test_valid.nopassword.key
+$ sudo openssl rsa -in test_invalid.key -out test_invalid.nopassword.key
+</pre></div>
+</div>
+<p>Copy the keys to the integration tests:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">cp</span> <span class="n">test_valid</span><span class="o">.</span><span class="n">nopassword</span><span class="o">.</span><span class="n">key</span> <span class="o">/</span><span class="n">var</span><span class="o">/</span><span class="n">local</span><span class="o">/</span><span class="n">dataone</span><span class="o">/</span><span class="n">gmn</span><span class="o">/</span><span class="n">src</span><span class="o">/</span><span class="n">tests</span>
+<span class="n">cp</span> <span class="n">test_invalid</span><span class="o">.</span><span class="n">nopassword</span><span class="o">.</span><span class="n">key</span> <span class="o">/</span><span class="n">var</span><span class="o">/</span><span class="n">local</span><span class="o">/</span><span class="n">dataone</span><span class="o">/</span><span class="n">gmn</span><span class="o">/</span><span class="n">src</span><span class="o">/</span><span class="n">tests</span>
+</pre></div>
+</div>
+</div></blockquote>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+    <p class="logo"><a href="http://dataone.org">
+      <img class="logo" src="_static/dataone_logo.png" alt="Logo"/>
+    </a></p>
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Resources</a><ul>
+<li><a class="reference internal" href="#add-dataone-test-certificate-to-system-wide-trusted-ca-store">Add DataONE test certificate to system wide trusted CA store</a></li>
+<li><a class="reference internal" href="#integration-testing-using-certificates">Integration testing using certificates</a></li>
+</ul>
+</li>
+</ul>
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation Overview</a><ul>
+  <li><a href="setup.html">GMN setup overview</a><ul>
+      <li>Previous: <a href="setup-extra-centos.html" title="previous chapter">Installing on CentOS 5.5</a></li>
+      <li>Next: <a href="use-authn-and-authz.html" title="next chapter">Authentication and authorization</a></li>
+  </ul></li>
+  </ul></li>
+</ul>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+
+    <div class="footer">
+      &copy; Copyright <a href="http://www.dataone.org">2010-2012 Participating institutions in DataONE</a>.
+        [ <a href="_sources/setup-extra-resources.txt"
+               rel="nofollow">Page Source</a> |
+          <a href='https://redmine.dataone.org/projects/d1/repository/changes/documents/Projects/cicore/architecture/api-documentation/source/setup-extra-resources.txt'
+            rel="nofollow">Revision History</a> ]&nbsp;&nbsp;<br />
+      <div id="acknowledgement" style="text-align:center">
+        <p>This material is based upon work supported by the National Science Foundation
+          under Grant Numbers <a href="http://www.nsf.gov/awardsearch/showAward?AWD_ID=0830944">083094</a> and <a href="http://www.nsf.gov/awardsearch/showAward?AWD_ID=1430508">1430508</a>.</p>
+        <p>Any opinions, findings, and conclusions or recommendations expressed in this
+           material are those of the author(s) and do not necessarily reflect the views
+           of the National Science Foundation.</p>
+      </div>
+    </div>
+    <!--
+    <hr />
+     <div id="HCB_comment_box"><a href="http://www.htmlcommentbox.com">HTML Comment Box</a> is loading comments...</div>
+     <link rel="stylesheet" type="text/css" href="_static/skin.css" />
+     <script type="text/javascript" language="javascript" id="hcb">
+     /*<! -*/
+     (function()
+     {s=document.createElement("script");
+     s.setAttribute("type","text/javascript");
+     s.setAttribute("src", "http://www.htmlcommentbox.com/jread?page="+escape((typeof hcb_user !== "undefined" && hcb_user.PAGE)||(""+window.location)).replace("+","%2B")+"&mod=%241%24wq1rdBcg%24Gg8J5iYSHJWwAJtlYu/yU."+"&opts=21407&num=10");
+     if (typeof s!="undefined") document.getElementsByTagName("head")[0].appendChild(s);})();
+      /* ->*/
+     </script>
+   -->
+  </body>
+</html>

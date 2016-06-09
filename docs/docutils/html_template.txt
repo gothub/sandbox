@@ -1,0 +1,17 @@
+%(head_prefix)s
+%(head)s
+%(stylesheet)s
+<script src="https://www.google.com/jsapi" type="text/javascript"></script>
+<script type="text/javascript">
+  google.load('search', '1');
+  google.setOnLoadCallback(function(){
+    new google.search.CustomSearchControl('000172613306001554066:q47510enxzo').draw('cse');
+  }, true);
+
+</script>
+%(body_prefix)s
+<div id="cse" style="float:right;width:30%%;">Loading</div>
+%(body_pre_docinfo)s
+%(docinfo)s
+%(body)s
+%(body_suffix)s

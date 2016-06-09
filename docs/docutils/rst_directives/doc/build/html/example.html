@@ -1,0 +1,204 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Example of CSVF Table &mdash; CSVFTable Directive v0.1 documentation</title>
+    <link rel="stylesheet" href="_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '',
+        VERSION:     '0.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="CSVFTable Directive v0.1 documentation" href="index.html" />
+    <link rel="prev" title="Welcome to CSVFTable Directive’s documentation!" href="index.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="index.html" title="Welcome to CSVFTable Directive’s documentation!"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">CSVFTable Directive v0.1 documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="example-of-csvf-table">
+<h1>Example of CSVF Table<a class="headerlink" href="#example-of-csvf-table" title="Permalink to this headline">¶</a></h1>
+<p>Given the csv file:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="s">&quot;Name&quot;</span><span class="p">,</span><span class="s">&quot;Age&quot;</span><span class="p">,</span><span class="s">&quot;Folly&quot;</span><span class="p">,</span><span class="s">&quot;Date&quot;</span>
+<span class="s">&quot;Harry&quot;</span><span class="p">,</span><span class="mi">12</span><span class="p">,</span><span class="s">&quot;Eating worms&quot;</span><span class="p">,</span><span class="s">&quot;2009-07-15&quot;</span>
+<span class="s">&quot;Jane&quot;</span><span class="p">,</span><span class="mi">14</span><span class="p">,</span><span class="s">&quot;Running fast&quot;</span><span class="p">,</span><span class="s">&quot;2010-01-11&quot;</span>
+<span class="s">&quot;Bob&quot;</span><span class="p">,</span><span class="mi">48</span><span class="p">,</span><span class="s">&quot;Driving range&quot;</span><span class="p">,</span><span class="s">&quot;1998-08-21&quot;</span>
+<span class="s">&quot;Sue&quot;</span><span class="p">,</span><span class="mi">32</span><span class="p">,</span><span class="s">&quot;Epicurial facilitation&quot;</span><span class="p">,</span><span class="s">&quot;2011-04-15&quot;</span>
+<span class="s">&quot;Rene&quot;</span><span class="p">,</span><span class="mi">36</span><span class="p">,</span><span class="s">&quot;Speed&quot;</span><span class="p">,</span><span class="s">&quot;2009-07-12&quot;</span>
+</pre></div>
+</div>
+<p>We can use the csvftable directive to render only a portion of the table and
+specify the ordering of columns.  For example:</p>
+<div class="highlight-python"><pre>.. csvftable:: Example of CSVF table
+   :header-rows: 1
+   :widths: 10 10 20
+   :columns: 1 2 3
+   :file: csv-data/example.csv</pre>
+</div>
+<p>renders as:</p>
+<table border="1" class="docutils">
+<caption>Example of CSVF table</caption>
+<colgroup>
+<col width="25%" />
+<col width="25%" />
+<col width="50%" />
+</colgroup>
+<thead valign="bottom">
+<tr><th class="head">Name</th>
+<th class="head">Age</th>
+<th class="head">Folly</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr><td>Harry</td>
+<td>12</td>
+<td>Eating worms</td>
+</tr>
+<tr><td>Jane</td>
+<td>14</td>
+<td>Running fast</td>
+</tr>
+<tr><td>Bob</td>
+<td>48</td>
+<td>Driving range</td>
+</tr>
+<tr><td>Sue</td>
+<td>32</td>
+<td>Epicurial facilitation</td>
+</tr>
+<tr><td>Rene</td>
+<td>36</td>
+<td>Speed</td>
+</tr>
+</tbody>
+</table>
+<p>and:</p>
+<div class="highlight-python"><pre>.. csvftable:: Example of CSVF table
+   :header-rows: 1
+   :widths: 20 10 10 10
+   :columns: 3 2 1 4
+   :file: csv-data/example.csv</pre>
+</div>
+<p>renders as:</p>
+<table border="1" class="docutils">
+<caption>Example of CSVF table</caption>
+<colgroup>
+<col width="40%" />
+<col width="20%" />
+<col width="20%" />
+<col width="20%" />
+</colgroup>
+<thead valign="bottom">
+<tr><th class="head">Folly</th>
+<th class="head">Age</th>
+<th class="head">Name</th>
+<th class="head">Date</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr><td>Eating worms</td>
+<td>12</td>
+<td>Harry</td>
+<td>2009-07-15</td>
+</tr>
+<tr><td>Running fast</td>
+<td>14</td>
+<td>Jane</td>
+<td>2010-01-11</td>
+</tr>
+<tr><td>Driving range</td>
+<td>48</td>
+<td>Bob</td>
+<td>1998-08-21</td>
+</tr>
+<tr><td>Epicurial facilitation</td>
+<td>32</td>
+<td>Sue</td>
+<td>2011-04-15</td>
+</tr>
+<tr><td>Speed</td>
+<td>36</td>
+<td>Rene</td>
+<td>2009-07-12</td>
+</tr>
+</tbody>
+</table>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="index.html"
+                        title="previous chapter">Welcome to CSVFTable Directive&#8217;s documentation!</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="_sources/example.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" size="18" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="index.html" title="Welcome to CSVFTable Directive’s documentation!"
+             >previous</a> |</li>
+        <li><a href="index.html">CSVFTable Directive v0.1 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2010, Dave Vieglais.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.4.
+    </div>
+  </body>
+</html>

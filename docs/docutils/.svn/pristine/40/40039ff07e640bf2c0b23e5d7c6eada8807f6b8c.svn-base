@@ -1,0 +1,7 @@
+#!/bin/sh
+# Convenience scripts for generating html from RST format
+
+CDIR=`dirname $0`
+CSS=$CDIR/css/dataone.css
+TEMPLATE=$CDIR/html_template.txt
+rst2html.py --field-name-limit 0 --stylesheet-path $CSS --template $TEMPLATE $1 $2 $3 $4 $5 $6 $7 $8

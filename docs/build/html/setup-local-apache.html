@@ -1,0 +1,157 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Install and configure Apache &mdash; DataONE Generic Member Node None documentation</title>
+    
+    <link rel="stylesheet" href="_static/dataone.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     'None',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/sidebar.js"></script>
+    <link rel="top" title="DataONE Generic Member Node None documentation" href="index.html" />
+    <link rel="up" title="Local installation" href="setup-local.html" />
+    <link rel="next" title="Install and configure PostgreSQL" href="setup-local-postgresql.html" />
+    <link rel="prev" title="Install the GMN software stack" href="setup-local-d1-stack.html" />
+   
+  
+  <link media="only screen and (max-device-width: 480px)" href="_static/small_dataone.css" type= "text/css" rel="stylesheet" />
+
+  </head>
+  <body role="document">
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="setup-local-postgresql.html" title="Install and configure PostgreSQL"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="setup-local-d1-stack.html" title="Install the GMN software stack"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">DataONE Generic Member Node None documentation</a> &raquo;</li>
+          <li class="nav-item nav-item-1"><a href="setup.html" >GMN setup overview</a> &raquo;</li>
+          <li class="nav-item nav-item-2"><a href="setup-local.html" accesskey="U">Local installation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="install-and-configure-apache">
+<h1>Install and configure Apache<a class="headerlink" href="#install-and-configure-apache" title="Permalink to this headline">¶</a></h1>
+<p>Setting up Apache.</p>
+<p>The <a class="reference internal" href="glossary.html#term-mod-ssl"><span class="xref std std-term">mod_ssl</span></a> module handles TLS/SSL connections for GMN and validates
+client side certificates. It is included in the apache2-common package,
+installed in the next step.</p>
+<p>The <a class="reference internal" href="glossary.html#term-mod-wsgi"><span class="xref std std-term">mod_wsgi</span></a> module enables Apache to communicate with <a class="reference internal" href="glossary.html#term-django"><span class="xref std std-term">Django</span></a>
+and GMN.</p>
+<blockquote>
+<div><p>Install Apache2 and required modules:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>$ sudo apt-get --yes install apache2 libapache2-mod-wsgi
+</pre></div>
+</div>
+<p>Enable modules:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>$ sudo a2enmod wsgi ssl rewrite
+</pre></div>
+</div>
+<p>Install the GMN virtual host file and custom apache2.conf file:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>$ cd /var/local/dataone/gmn/lib/python2.7/site-packages/deployment
+$ sudo cp gmn-ssl.conf /etc/apache2/sites-available/
+$ sudo cp forward_http_to_https.conf /etc/apache2/conf-available
+</pre></div>
+</div>
+<p>Enable the HTTP forwarding configuration:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>$ sudo a2enconf forward_http_to_https
+</pre></div>
+</div>
+<p>Enable the GMN Virtual Host:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>$ sudo a2ensite gmn-ssl
+</pre></div>
+</div>
+</div></blockquote>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+    <p class="logo"><a href="http://dataone.org">
+      <img class="logo" src="_static/dataone_logo.png" alt="Logo"/>
+    </a></p><h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation Overview</a><ul>
+  <li><a href="setup.html">GMN setup overview</a><ul>
+  <li><a href="setup-local.html">Local installation</a><ul>
+      <li>Previous: <a href="setup-local-d1-stack.html" title="previous chapter">Install the GMN software stack</a></li>
+      <li>Next: <a href="setup-local-postgresql.html" title="next chapter">Install and configure PostgreSQL</a></li>
+  </ul></li>
+  </ul></li>
+  </ul></li>
+</ul>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+
+    <div class="footer">
+      &copy; Copyright <a href="http://www.dataone.org">2010-2012 Participating institutions in DataONE</a>.
+        [ <a href="_sources/setup-local-apache.txt"
+               rel="nofollow">Page Source</a> |
+          <a href='https://redmine.dataone.org/projects/d1/repository/changes/documents/Projects/cicore/architecture/api-documentation/source/setup-local-apache.txt'
+            rel="nofollow">Revision History</a> ]&nbsp;&nbsp;<br />
+      <div id="acknowledgement" style="text-align:center">
+        <p>This material is based upon work supported by the National Science Foundation
+          under Grant Numbers <a href="http://www.nsf.gov/awardsearch/showAward?AWD_ID=0830944">083094</a> and <a href="http://www.nsf.gov/awardsearch/showAward?AWD_ID=1430508">1430508</a>.</p>
+        <p>Any opinions, findings, and conclusions or recommendations expressed in this
+           material are those of the author(s) and do not necessarily reflect the views
+           of the National Science Foundation.</p>
+      </div>
+    </div>
+    <!--
+    <hr />
+     <div id="HCB_comment_box"><a href="http://www.htmlcommentbox.com">HTML Comment Box</a> is loading comments...</div>
+     <link rel="stylesheet" type="text/css" href="_static/skin.css" />
+     <script type="text/javascript" language="javascript" id="hcb">
+     /*<! -*/
+     (function()
+     {s=document.createElement("script");
+     s.setAttribute("type","text/javascript");
+     s.setAttribute("src", "http://www.htmlcommentbox.com/jread?page="+escape((typeof hcb_user !== "undefined" && hcb_user.PAGE)||(""+window.location)).replace("+","%2B")+"&mod=%241%24wq1rdBcg%24Gg8J5iYSHJWwAJtlYu/yU."+"&opts=21407&num=10");
+     if (typeof s!="undefined") document.getElementsByTagName("head")[0].appendChild(s);})();
+      /* ->*/
+     </script>
+   -->
+  </body>
+</html>

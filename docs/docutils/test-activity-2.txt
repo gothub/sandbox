@@ -1,0 +1,18 @@
+  @startuml images/systemmetadata-listener-activity.png
+    skinparam {
+        titleFofntColor black
+                titleFontSize 16
+                titleFontStyle normal
+                titleFontName Lucida Bright
+        }
+  title: System Metadata Listener
+  (*) -down-> sysmeta entry added
+  -down-> ===process_sysmeta===
+  (*) -down-> sysmeta entry updated
+   --> ===process_sysmeta===
+  -down-> retrieve Solr entries for updated/added pid
+  -down-> update permission fields
+  -down-> update location fields
+  -down-> update spatial field
+  -down-> publish to index processing queue
+  @enduml

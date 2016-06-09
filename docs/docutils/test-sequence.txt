@@ -1,0 +1,44 @@
+  @startuml images/log-aggregation-sequence.png
+  skinparam {
+        sequenceTitleFontColor black
+                sequenceTitleFontSize 16
+                sequenceTitleFontStyle normal
+                sequenceTitleFontName Lucida Bright
+        }
+        title: Log Aggregation Processing
+
+        LogAggregationScheduleMananger -> LogAggregationScheduleMananger : addHarvest()
+        activate LogAggregationScheduleMananger
+        LogAggregationScheduleMananger -> LogAggregationHarvestJob : execute()
+        deactivate LogAggregationScheduleMananger
+        activate LogAggregationHarvestJob
+        LogAggregationHarvestJob -> LogAggregatorTask : call()
+        deactivate LogAggregationHarvestJob
+        activate LogAggregatorTask
+        LogAggregatorTask -> LogAggregatorTask : retrieve()
+        LogAggregatorTask -> MNode : getLogRecords()
+        activate MNode
+        MNode -> LogAggregatorTask : Log
+        deactivate MNode
+        LogAggregatorTask -> "hzLogEntryTopic : ITopic" : publish(solrItemList)
+                deactivate LogAggregatorTask
+        activate "hzLogEntryTopic : ITopic"
+        deactivate MNode
+        "hzLogEntryTopic : ITopic" -> LogEntryTopicListener : onMessage()
+        deactivate "hzLogEntryTopic : ITopic"
+        activate LogEntryTopicListener
+        LogEntryTopicListener -> indexLogEntryQueue
+        deactivate LogEntryTopicListener
+        activate indexLogEntryQueue
+        indexLogEntryQueue -> indexLogEntryQueue : offer()
+  indexLogEntryQueue -> indexLogEntryQueue : poll()
+        indexLogEntryQueue -> LogEntryQueueTask
+        deactivate indexLogEntryQueue
+        activate LogEntryQueueTask
+        LogEntryQueueTask -> LogEntryIndexTask : call()
+        deactivate LogEntryQueueTask
+        activate LogEntryIndexTask
+        LogEntryIndexTask -> solrServer : addbeans()
+        deactivate LogEntryIndexTask
+
+  @enduml

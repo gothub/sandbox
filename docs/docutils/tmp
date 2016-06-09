@@ -1,0 +1,53 @@
+
+Activities involved in client sends DataONE QC request
+
+
+client sends DataONE QC request
+
+DataONE API parses request and
+constructs MQE call
+
+DataONE API calls approriate MQE API
+
+- if run_recommendation
+  - get recommendation metadata
+    - for each dataset
+      - for each check
+        - get check metadata
+        - run check
+        - store check results
+
+- if single check
+  - get check metadata
+  - run check
+  - store check results
+
+
+- format check results
+- return results to MQE
+- return results to DataONE 
+- return results to client
+
+
+  @startuml images/mqe-run-check-activity.png
+    skinparam {
+        titleFofntColor black
+                titleFontSize 16
+                titleFontStyle normal
+                titleFontName Lucida Bright
+        }
+  title: MQE Single Check Activity Diagram
+  (*) -down-> client sends DataONE QC request
+  -down-> DataONE API parses request and constructs MQE call
+  -down-> DataONE API calls approriate MQE API
+  if "Run recommendation" then
+  -down->[true] "get recommendation metadata"
+  -down-> "add location data"
+  -down-> send entries to Solr
+  -right-> Loop through MNs
+  else
+  -->[false] ===foo===
+  endif
+
+  ===foo=== -down-> (*)
+  @enduml

@@ -1,0 +1,23 @@
+
+@startuml images/mqe-run-check-activity.png
+    skinparam {
+        titleFofntColor black
+                titleFontSize 16
+                titleFontStyle normal
+                titleFontName Lucida Bright
+        }
+  title: MQE Single Check Activity Diagram
+  (*) -down-> client sends DataONE QC request
+  -down-> DataONE API parses request and constructs MQE call
+  -down-> DataONE API calls approriate MQE API
+  if "Run recommendation" then
+  -down-> "get recommendation metadata"
+  endif
+  if "single check" then
+  -down->[true] "get single check metadata"
+  else
+  -->[false] ===foo===
+  endif
+
+  ===foo=== -down-> (*)
+  @enduml

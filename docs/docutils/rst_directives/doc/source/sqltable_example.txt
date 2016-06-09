@@ -1,0 +1,64 @@
+SQL Table
+==========
+
+The sqltable directive provides a mechanism for populating a table using content
+drawn from an SQL SELECT statement. 
+
+:Directive-Type: ``sqltable``
+:Doctree Element: ``table``
+:Directive Arguments: 3, optional (table title)
+:Directive Options: Possible
+:Directive Content: An SQL data source 
+
+
+The following options are recognized:
+
+``header``: Comma delimited list of heading column names.
+
+``widths``: [int, ...], relative widths of the table columns.
+
+``driver``: The driver name to use for connecting to the database. For Excel
+            spreadsheets, use "xlsx". For SQLite databases, use "sqlite3".
+
+``source``: The data source that will be passed on to the driver for connecting
+            to the database. For "xlsx" use the path to the spreadsheet. For
+            "sqlite3", use the path to the sqlite3 database file. 
+
+``sql``: string, SQL that will be used to retrieve the tablular data.
+
+
+Note that for now the table header values must be specified.
+
+
+Example
+-------
+
+Given an XLSX file, ``data/test.xlsx`` containing a work sheet ``Sheet1`` we 
+can use the sqltable directive to render all or a portion of the table.
+
+For example::
+
+  .. sqltable:: Example of SQL table
+     :header: Name, Age, Folly, Date
+     :widths: 10 10 20 10
+     :driver: xlsx
+     :source: source/data/test.xlsx
+     :sql: SELECT * FROM Sheet1 WHERE Age > 12;
+  
+Renders as:
+
+.. sqltable:: Example of SQL table
+   :header: Name, Age, Folly, Date
+   :widths: 10 10 20 10
+   :driver: xlsx
+   :source: source/data/test.xlsx
+   :sql: SELECT * FROM Sheet1 WHERE Age > 12;
+
+
+Module
+------
+
+.. automodule:: sqltable
+   :members:
+   :undoc-members:
+ 

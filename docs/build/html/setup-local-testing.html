@@ -1,0 +1,356 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Test the installation &mdash; DataONE Generic Member Node None documentation</title>
+    
+    <link rel="stylesheet" href="_static/dataone.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     'None',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/sidebar.js"></script>
+    <link rel="top" title="DataONE Generic Member Node None documentation" href="index.html" />
+    <link rel="up" title="Local installation" href="setup-local.html" />
+    <link rel="next" title="Registering the new MN in a DataONE environment" href="setup-env.html" />
+    <link rel="prev" title="Final configuration and startup" href="setup-local-final.html" />
+   
+  
+  <link media="only screen and (max-device-width: 480px)" href="_static/small_dataone.css" type= "text/css" rel="stylesheet" />
+
+  </head>
+  <body role="document">
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="setup-env.html" title="Registering the new MN in a DataONE environment"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="setup-local-final.html" title="Final configuration and startup"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">DataONE Generic Member Node None documentation</a> &raquo;</li>
+          <li class="nav-item nav-item-1"><a href="setup.html" >GMN setup overview</a> &raquo;</li>
+          <li class="nav-item nav-item-2"><a href="setup-local.html" accesskey="U">Local installation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="test-the-installation">
+<h1>Test the installation<a class="headerlink" href="#test-the-installation" title="Permalink to this headline">¶</a></h1>
+<p>The new stand-alone GMN instance is now ready to be tested.</p>
+<p>After a successful installation, GMN exposes
+the <a class="reference external" href="http://mule1.dataone.org/ArchitectureDocs-current/apis/MN_APIs.html">complete REST interface that DataONE has defined for Member Nodes</a>.</p>
+<p>The default installation makes GMN accessible both on the server&#8217;s loopback
+(localhost) and external interface(s). So the tests outlined below can be
+performed on the local server or from a different host by replacing
+<code class="docutils literal"><span class="pre">localhost</span></code> with the server&#8217;s external name or address.</p>
+<div class="section" id="basic-testing-via-web-browser-or-curl">
+<h2>Basic testing via web browser or curl<a class="headerlink" href="#basic-testing-via-web-browser-or-curl" title="Permalink to this headline">¶</a></h2>
+<p>These initial tests can be performed via a web browser or the <code class="docutils literal"><span class="pre">curl</span></code> command
+line utility. By default, stand-alone instances of GMN use a non-trusted
+&#8220;snakeoil&#8221; self-signed certificate. The browser will warn about this and may
+require you to create a security exception. <code class="docutils literal"><span class="pre">curl</span></code> will need to be started
+with the <code class="docutils literal"><span class="pre">--insecure</span></code> switch. For example, <code class="docutils literal"><span class="pre">curl</span> <span class="pre">--insecure</span> <span class="pre">&lt;url&gt;</span></code>.</p>
+<p>After the stand-alone GMN instance passes the tests, it can be joined to
+DataONE by performing the <a class="reference internal" href="setup-env.html"><span class="doc">Registering the new MN in a DataONE environment</span></a> section of the
+installation, in which the non-trusted certificate is replaced with a publicly
+trusted certificate from a 3rd party CA.</p>
+<div class="section" id="node-document">
+<h3>Node document<a class="headerlink" href="#node-document" title="Permalink to this headline">¶</a></h3>
+<p>Open:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">localhost</span><span class="o">/</span><span class="n">mn</span><span class="o">/</span><span class="n">v1</span>
+</pre></div>
+</div>
+<p>You should see an XML document such as this:</p>
+<div class="highlight-xml"><div class="highlight"><pre><span></span><span class="cp">&lt;?xml version=&quot;1.0&quot; ?&gt;</span>
+<span class="nt">&lt;ns1:node</span> <span class="na">replicate=</span><span class="s">&quot;true&quot;</span> <span class="na">state=</span><span class="s">&quot;up&quot;</span> <span class="na">synchronize=</span><span class="s">&quot;true&quot;</span> <span class="na">type=</span><span class="s">&quot;mn&quot;</span>
+  <span class="na">xmlns:ns1=</span><span class="s">&quot;http://ns.dataone.org/service/types/v1&quot;</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;identifier&gt;</span>urn:node:MyMemberNode<span class="nt">&lt;/identifier&gt;</span>
+  <span class="nt">&lt;name&gt;</span>My Member Node<span class="nt">&lt;/name&gt;</span>
+  <span class="nt">&lt;description&gt;</span>Test Member Node<span class="nt">&lt;/description&gt;</span>
+  <span class="nt">&lt;baseURL&gt;</span>https://localhost/mn<span class="nt">&lt;/baseURL&gt;</span>
+  <span class="nt">&lt;services&gt;</span>
+    <span class="nt">&lt;service</span> <span class="na">available=</span><span class="s">&quot;true&quot;</span> <span class="na">name=</span><span class="s">&quot;MNCore&quot;</span> <span class="na">version=</span><span class="s">&quot;v1&quot;</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;service</span> <span class="na">available=</span><span class="s">&quot;true&quot;</span> <span class="na">name=</span><span class="s">&quot;MNRead&quot;</span> <span class="na">version=</span><span class="s">&quot;v1&quot;</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;service</span> <span class="na">available=</span><span class="s">&quot;true&quot;</span> <span class="na">name=</span><span class="s">&quot;MNAuthorization&quot;</span> <span class="na">version=</span><span class="s">&quot;v1&quot;</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;service</span> <span class="na">available=</span><span class="s">&quot;true&quot;</span> <span class="na">name=</span><span class="s">&quot;MNStorage&quot;</span> <span class="na">version=</span><span class="s">&quot;v1&quot;</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;service</span> <span class="na">available=</span><span class="s">&quot;true&quot;</span> <span class="na">name=</span><span class="s">&quot;MNReplication&quot;</span> <span class="na">version=</span><span class="s">&quot;v1&quot;</span><span class="nt">/&gt;</span>
+  <span class="nt">&lt;/services&gt;</span>
+  <span class="nt">&lt;synchronization&gt;</span>
+    <span class="nt">&lt;schedule</span> <span class="na">hour=</span><span class="s">&quot;*&quot;</span> <span class="na">mday=</span><span class="s">&quot;*&quot;</span> <span class="na">min=</span><span class="s">&quot;0/3&quot;</span> <span class="na">mon=</span><span class="s">&quot;*&quot;</span> <span class="na">sec=</span><span class="s">&quot;0&quot;</span> <span class="na">wday=</span><span class="s">&quot;?&quot;</span> <span class="na">year=</span><span class="s">&quot;*&quot;</span><span class="nt">/&gt;</span>
+  <span class="nt">&lt;/synchronization&gt;</span>
+  <span class="nt">&lt;nodeReplicationPolicy&gt;</span>
+    <span class="nt">&lt;spaceAllocated&gt;</span>10995116277760<span class="nt">&lt;/spaceAllocated&gt;</span>
+  <span class="nt">&lt;/nodeReplicationPolicy&gt;</span>
+  <span class="nt">&lt;subject&gt;</span>CN=urn:node:MyMemberNode,DC=dataone,DC=org<span class="nt">&lt;/subject&gt;</span>
+  <span class="nt">&lt;contactSubject&gt;</span>CN=My Name,O=Google,C=US,DC=cilogon,DC=org<span class="nt">&lt;/contactSubject&gt;</span>
+<span class="nt">&lt;/ns1:node&gt;</span>
+</pre></div>
+</div>
+<p>This is your Node document. It exposes information about your Node to the
+DataONE infrastructure. It currently contains only default values. The
+<a class="reference internal" href="setup-env.html"><span class="doc">Registering the new MN in a DataONE environment</span></a> section of the installation includes information
+on how to customize this document for your node.</p>
+</div>
+<div class="section" id="home-page">
+<h3>Home page<a class="headerlink" href="#home-page" title="Permalink to this headline">¶</a></h3>
+<p>GMN also has a home page with some basic statistics, available at:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">localhost</span><span class="o">/</span><span class="n">mn</span><span class="o">/</span><span class="n">home</span>
+</pre></div>
+</div>
+<p>Note that the <code class="docutils literal"><span class="pre">home</span></code> endpoint is not part of DataONE&#8217;s API definition for
+Member Nodes, and so does not include the DataONE API version designator
+(<code class="docutils literal"><span class="pre">/v1/</span></code>) in the URL.</p>
+</div>
+</div>
+<div class="section" id="testing-via-the-dataone-command-line-client">
+<h2>Testing via the DataONE Command Line Client<a class="headerlink" href="#testing-via-the-dataone-command-line-client" title="Permalink to this headline">¶</a></h2>
+<p>DataONE provides the DataONE Command Line Client (CLI), a utility for
+interacting with MNs and CNs. The CLI is installed automatically with GMN
+and can be started by typing <code class="docutils literal"><span class="pre">dataone</span></code> while the gmn virtualenv is active.</p>
+<div class="section" id="basic-cli-usage">
+<h3>Basic CLI usage<a class="headerlink" href="#basic-cli-usage" title="Permalink to this headline">¶</a></h3>
+<blockquote>
+<div><p>Become the <code class="docutils literal"><span class="pre">gmn</span></code> user and activate the virtualenv:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>$ sudo su gmn; cd /var/local/dataone/gmn; . bin/activate;
+</pre></div>
+</div>
+<p>Start the CLI:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>$ dataone
+</pre></div>
+</div>
+<p>Get a list of commands:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">&gt;</span> <span class="n">help</span>
+</pre></div>
+</div>
+<p>Get help on a specific command:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">&gt;</span> <span class="n">help</span> <span class="nb">list</span>
+</pre></div>
+</div>
+<p>View the session variables:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">&gt;</span> <span class="nb">set</span>
+</pre></div>
+</div>
+<p>Save the settings:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">&gt;</span> <span class="n">save</span>
+</pre></div>
+</div>
+</div></blockquote>
+</div>
+<div class="section" id="test-anonymous-connection">
+<h3>Test anonymous connection<a class="headerlink" href="#test-anonymous-connection" title="Permalink to this headline">¶</a></h3>
+<blockquote>
+<div><p>If necessary, start the CLI as described above.</p>
+<p>Set your local GMN instance as the current target MN:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">&gt;</span> <span class="nb">set</span> <span class="n">mn</span><span class="o">-</span><span class="n">url</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">localhost</span><span class="o">/</span><span class="n">mn</span>
+</pre></div>
+</div>
+<p>Use an anonymous connection:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">&gt;</span> <span class="nb">set</span> <span class="n">anonymous</span> <span class="n">true</span>
+</pre></div>
+</div>
+<p>Perform a MNRead.listObjects() call, which will return a short XML document
+representing an empty list of objects:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">&gt;</span> <span class="nb">list</span>
+</pre></div>
+</div>
+<p>Save the settings:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">&gt;</span> <span class="n">save</span>
+</pre></div>
+</div>
+</div></blockquote>
+</div>
+<div class="section" id="create-and-retrieve-a-test-object">
+<h3>Create and retrieve a test object<a class="headerlink" href="#create-and-retrieve-a-test-object" title="Permalink to this headline">¶</a></h3>
+<p>GMN automatically assigns create, update and delete permissions to its own
+client side certificate, so using GMN&#8217;s client side certificate is a convenient
+way of creating an authenticated connection that can be used for creating
+objects on the node.</p>
+<blockquote>
+<div><p>If necessary, exit the CLI:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">&gt;</span> <span class="n">exit</span>
+</pre></div>
+</div>
+<p>As the <code class="docutils literal"><span class="pre">gmn</span></code> user, create a text file containing the word &#8220;test&#8221;:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>$ echo &gt;/tmp/test test
+</pre></div>
+</div>
+<p>Start the CLI:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>$ dataone
+</pre></div>
+</div>
+<p>Switch to an authenticated connection:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">&gt;</span> <span class="nb">set</span> <span class="n">anonymous</span> <span class="n">false</span>
+</pre></div>
+</div>
+<p>Use GMN&#8217;s client side certificate for authentication:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">&gt;</span> <span class="nb">set</span> <span class="n">cert</span><span class="o">-</span><span class="n">file</span> <span class="o">/</span><span class="n">var</span><span class="o">/</span><span class="n">local</span><span class="o">/</span><span class="n">dataone</span><span class="o">/</span><span class="n">certs</span><span class="o">/</span><span class="n">client</span><span class="o">/</span><span class="n">client_cert</span><span class="o">.</span><span class="n">pem</span>
+<span class="o">&gt;</span> <span class="nb">set</span> <span class="n">key</span><span class="o">-</span><span class="n">file</span> <span class="o">/</span><span class="n">var</span><span class="o">/</span><span class="n">local</span><span class="o">/</span><span class="n">dataone</span><span class="o">/</span><span class="n">certs</span><span class="o">/</span><span class="n">client</span><span class="o">/</span><span class="n">client_key_nopassword</span><span class="o">.</span><span class="n">pem</span>
+</pre></div>
+</div>
+<p>Set the session variables that are required for creating the System Metadata
+for the new object:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">&gt;</span> <span class="nb">set</span> <span class="nb">format</span><span class="o">-</span><span class="nb">id</span> <span class="n">text</span><span class="o">/</span><span class="n">plain</span>
+<span class="o">&gt;</span> <span class="nb">set</span> <span class="n">authoritative</span><span class="o">-</span><span class="n">mn</span> <span class="n">urn</span><span class="p">:</span><span class="n">node</span><span class="p">:</span><span class="n">MyMemberNode</span>
+<span class="o">&gt;</span> <span class="nb">set</span> <span class="n">rights</span><span class="o">-</span><span class="n">holder</span> <span class="n">testSubject</span>
+</pre></div>
+</div>
+<p>Queue the object create operation:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">&gt;</span> <span class="n">create</span> <span class="n">test</span> <span class="o">/</span><span class="n">tmp</span><span class="o">/</span><span class="n">test</span>
+</pre></div>
+</div>
+<p>View then execute the queued operation:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">&gt;</span> <span class="n">queue</span>
+<span class="o">&gt;</span> <span class="n">run</span>
+</pre></div>
+</div>
+<p>Press Enter to continue.</p>
+<p>Verify that the operation was executed successfully.</p>
+<p>Perform a MNRead.listObjects() call:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">&gt;</span> <span class="nb">list</span>
+</pre></div>
+</div>
+<p>Observe that the object list now contains an entry for the newly created
+object.</p>
+<p>Download the object:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">&gt;</span> <span class="n">get</span> <span class="n">test</span> <span class="o">/</span><span class="n">tmp</span><span class="o">/</span><span class="n">test2</span>
+</pre></div>
+</div>
+<p>Save the settings and exit the CLI:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">&gt;</span> <span class="n">save</span>
+<span class="o">&gt;</span> <span class="n">exit</span>
+</pre></div>
+</div>
+<p>Verify that the downloaded object equals the original:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>$ cat /tmp/test /tmp/test2
+</pre></div>
+</div>
+<p>Remove the test files:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>$ rm /tmp/test /tmp/test2
+</pre></div>
+</div>
+</div></blockquote>
+<p>See the <a class="reference external" href="http://pythonhosted.org/dataone.cli">DataONE Command Line Interface (CLI) documentation</a> for more information about how to use
+the CLI.</p>
+<p>After successful completion of the tests above, the new GMN instance is ready
+for stand-alone use. Usage scenarios for a stand-alone instance of GMN include
+development and testing of DataONE clients and other DataONE infrastructure
+components, evaluating performance and usability for some specific purpose and
+learning about the infrastructure. Significant effort has been made in keeping
+the implementation easy to read and extend as well.</p>
+<p>As a DataONE MN, GMN also brings a unique mix of features that may make it
+usable for object storage independent of DataONE. These features include X.509
+certificate based authentication and authorization, SSL/TLS encryption, fine
+grained ACL based access control for individual objects, basic tracking of
+provenance and associated metadata such as Content-Type and checksum and a REST
+API with libraries available for Java and Python.</p>
+<p>Continue with the next installation section if the node is to be registered with
+DataONE.</p>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+    <p class="logo"><a href="http://dataone.org">
+      <img class="logo" src="_static/dataone_logo.png" alt="Logo"/>
+    </a></p>
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Test the installation</a><ul>
+<li><a class="reference internal" href="#basic-testing-via-web-browser-or-curl">Basic testing via web browser or curl</a><ul>
+<li><a class="reference internal" href="#node-document">Node document</a></li>
+<li><a class="reference internal" href="#home-page">Home page</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#testing-via-the-dataone-command-line-client">Testing via the DataONE Command Line Client</a><ul>
+<li><a class="reference internal" href="#basic-cli-usage">Basic CLI usage</a></li>
+<li><a class="reference internal" href="#test-anonymous-connection">Test anonymous connection</a></li>
+<li><a class="reference internal" href="#create-and-retrieve-a-test-object">Create and retrieve a test object</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation Overview</a><ul>
+  <li><a href="setup.html">GMN setup overview</a><ul>
+  <li><a href="setup-local.html">Local installation</a><ul>
+      <li>Previous: <a href="setup-local-final.html" title="previous chapter">Final configuration and startup</a></li>
+      <li>Next: <a href="setup-env.html" title="next chapter">Registering the new MN in a DataONE environment</a></li>
+  </ul></li>
+  </ul></li>
+  </ul></li>
+</ul>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+
+    <div class="footer">
+      &copy; Copyright <a href="http://www.dataone.org">2010-2012 Participating institutions in DataONE</a>.
+        [ <a href="_sources/setup-local-testing.txt"
+               rel="nofollow">Page Source</a> |
+          <a href='https://redmine.dataone.org/projects/d1/repository/changes/documents/Projects/cicore/architecture/api-documentation/source/setup-local-testing.txt'
+            rel="nofollow">Revision History</a> ]&nbsp;&nbsp;<br />
+      <div id="acknowledgement" style="text-align:center">
+        <p>This material is based upon work supported by the National Science Foundation
+          under Grant Numbers <a href="http://www.nsf.gov/awardsearch/showAward?AWD_ID=0830944">083094</a> and <a href="http://www.nsf.gov/awardsearch/showAward?AWD_ID=1430508">1430508</a>.</p>
+        <p>Any opinions, findings, and conclusions or recommendations expressed in this
+           material are those of the author(s) and do not necessarily reflect the views
+           of the National Science Foundation.</p>
+      </div>
+    </div>
+    <!--
+    <hr />
+     <div id="HCB_comment_box"><a href="http://www.htmlcommentbox.com">HTML Comment Box</a> is loading comments...</div>
+     <link rel="stylesheet" type="text/css" href="_static/skin.css" />
+     <script type="text/javascript" language="javascript" id="hcb">
+     /*<! -*/
+     (function()
+     {s=document.createElement("script");
+     s.setAttribute("type","text/javascript");
+     s.setAttribute("src", "http://www.htmlcommentbox.com/jread?page="+escape((typeof hcb_user !== "undefined" && hcb_user.PAGE)||(""+window.location)).replace("+","%2B")+"&mod=%241%24wq1rdBcg%24Gg8J5iYSHJWwAJtlYu/yU."+"&opts=21407&num=10");
+     if (typeof s!="undefined") document.getElementsByTagName("head")[0].appendChild(s);})();
+      /* ->*/
+     </script>
+   -->
+  </body>
+</html>

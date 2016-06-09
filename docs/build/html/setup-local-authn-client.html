@@ -1,0 +1,151 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Install non-trusted client side certificate &mdash; DataONE Generic Member Node None documentation</title>
+    
+    <link rel="stylesheet" href="_static/dataone.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     'None',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/sidebar.js"></script>
+    <link rel="top" title="DataONE Generic Member Node None documentation" href="index.html" />
+    <link rel="up" title="Local installation" href="setup-local.html" />
+    <link rel="next" title="Install non-trusted server side certificate" href="setup-local-authn-server.html" />
+    <link rel="prev" title="Local Certificate Authority (CA)" href="setup-local-authn-ca.html" />
+   
+  
+  <link media="only screen and (max-device-width: 480px)" href="_static/small_dataone.css" type= "text/css" rel="stylesheet" />
+
+  </head>
+  <body role="document">
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="setup-local-authn-server.html" title="Install non-trusted server side certificate"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="setup-local-authn-ca.html" title="Local Certificate Authority (CA)"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">DataONE Generic Member Node None documentation</a> &raquo;</li>
+          <li class="nav-item nav-item-1"><a href="setup.html" >GMN setup overview</a> &raquo;</li>
+          <li class="nav-item nav-item-2"><a href="setup-local.html" accesskey="U">Local installation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="install-non-trusted-client-side-certificate">
+<h1>Install non-trusted client side certificate<a class="headerlink" href="#install-non-trusted-client-side-certificate" title="Permalink to this headline">¶</a></h1>
+<p>In addition to acting as servers in the DataONE infrastructure, Member Nodes
+also act as clients, initiating connections to other Nodes. When connecting to
+other Nodes, Member Nodes authenticate themselves in a process called
+<a class="reference internal" href="glossary.html#term-client-side-authentication"><span class="xref std std-term">client side authentication</span></a>, in which a client side certificate is
+provided over an LTS/SSL connection.</p>
+<p>Nodes that are registered with DataONE will only trust Member Node connections
+where a client side sertificate issued by the DataONE <a class="reference internal" href="glossary.html#term-ca"><span class="xref std std-term">CA</span></a> is provided.
+However, a stand-alone instance of GMN will not connect to registered Member
+Nodes, so a non-trusted client side certificate can be used instead.</p>
+<p>These instructions use a non-trusted client side certificate for the first part
+of the install and describe how to upgrade the certificate to a certificate
+issued by the DataONE CA in the optional section on how to register the node.</p>
+<p>If you already have a client side certificate issued by the DataONE CA, you can
+still install the non-trusted certificate here and just follow the instructions
+to upgrade it later.</p>
+<blockquote>
+<div><p>Copy the previously created locally signed client side certificate for
+outgoing connections:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>$ cd /var/local/dataone/certs/local_ca
+$ sudo mkdir -p ../client
+$ sudo cp client_cert.pem private/client_key_nopassword.pem ../client
+</pre></div>
+</div>
+</div></blockquote>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+    <p class="logo"><a href="http://dataone.org">
+      <img class="logo" src="_static/dataone_logo.png" alt="Logo"/>
+    </a></p><h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation Overview</a><ul>
+  <li><a href="setup.html">GMN setup overview</a><ul>
+  <li><a href="setup-local.html">Local installation</a><ul>
+      <li>Previous: <a href="setup-local-authn-ca.html" title="previous chapter">Local Certificate Authority (CA)</a></li>
+      <li>Next: <a href="setup-local-authn-server.html" title="next chapter">Install non-trusted server side certificate</a></li>
+  </ul></li>
+  </ul></li>
+  </ul></li>
+</ul>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+
+    <div class="footer">
+      &copy; Copyright <a href="http://www.dataone.org">2010-2012 Participating institutions in DataONE</a>.
+        [ <a href="_sources/setup-local-authn-client.txt"
+               rel="nofollow">Page Source</a> |
+          <a href='https://redmine.dataone.org/projects/d1/repository/changes/documents/Projects/cicore/architecture/api-documentation/source/setup-local-authn-client.txt'
+            rel="nofollow">Revision History</a> ]&nbsp;&nbsp;<br />
+      <div id="acknowledgement" style="text-align:center">
+        <p>This material is based upon work supported by the National Science Foundation
+          under Grant Numbers <a href="http://www.nsf.gov/awardsearch/showAward?AWD_ID=0830944">083094</a> and <a href="http://www.nsf.gov/awardsearch/showAward?AWD_ID=1430508">1430508</a>.</p>
+        <p>Any opinions, findings, and conclusions or recommendations expressed in this
+           material are those of the author(s) and do not necessarily reflect the views
+           of the National Science Foundation.</p>
+      </div>
+    </div>
+    <!--
+    <hr />
+     <div id="HCB_comment_box"><a href="http://www.htmlcommentbox.com">HTML Comment Box</a> is loading comments...</div>
+     <link rel="stylesheet" type="text/css" href="_static/skin.css" />
+     <script type="text/javascript" language="javascript" id="hcb">
+     /*<! -*/
+     (function()
+     {s=document.createElement("script");
+     s.setAttribute("type","text/javascript");
+     s.setAttribute("src", "http://www.htmlcommentbox.com/jread?page="+escape((typeof hcb_user !== "undefined" && hcb_user.PAGE)||(""+window.location)).replace("+","%2B")+"&mod=%241%24wq1rdBcg%24Gg8J5iYSHJWwAJtlYu/yU."+"&opts=21407&num=10");
+     if (typeof s!="undefined") document.getElementsByTagName("head")[0].appendChild(s);})();
+      /* ->*/
+     </script>
+   -->
+  </body>
+</html>

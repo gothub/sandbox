@@ -1,0 +1,25 @@
+  @startuml images/log-aggregation-activity.png
+    skinparam {
+        titleFofntColor black
+                titleFontSize 16
+                titleFontStyle normal
+                titleFontName Lucida Bright
+        }
+  title: Log Aggregation Overview
+  (*) -down-> Initialization
+  -down-> recover recent data from other CNs
+  -down-> Register log index top listener
+  -down-> register systemmetadata listener
+  -down-> Loop through MNs
+  if "More MNs to harvest" then
+  -down->[true] "get log records from MN"
+  -down-> "add data from systemmetadata"
+  -down-> "add location data"
+  -down-> send entries to Solr
+  -right-> Loop through MNs
+  else
+  -->[false] ===foo===
+  endif
+
+  ===foo=== -down-> (*)
+  @enduml

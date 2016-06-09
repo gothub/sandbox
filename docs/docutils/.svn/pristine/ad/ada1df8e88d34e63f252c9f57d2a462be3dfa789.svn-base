@@ -1,0 +1,21 @@
+Custom Docutils Directives
+==========================
+
+Contents:
+
+.. toctree::
+   :maxdepth: 2
+
+   install
+   csvfexample
+   sqltable_example
+   utilities
+
+
+Indices and tables
+==================
+
+* :ref:`genindex`
+* :ref:`modindex`
+* :ref:`search`
+

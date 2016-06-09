@@ -1,0 +1,320 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Register the new Member Node with DataONE &mdash; DataONE Generic Member Node None documentation</title>
+    
+    <link rel="stylesheet" href="_static/dataone.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     'None',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/sidebar.js"></script>
+    <link rel="top" title="DataONE Generic Member Node None documentation" href="index.html" />
+    <link rel="up" title="Registering the new MN in a DataONE environment" href="setup-env.html" />
+    <link rel="next" title="Select the DataONE Tier" href="setup-env-tier.html" />
+    <link rel="prev" title="Install CILogon and DataONE root CA certificates" href="setup-env-authn-ca.html" />
+   
+  
+  <link media="only screen and (max-device-width: 480px)" href="_static/small_dataone.css" type= "text/css" rel="stylesheet" />
+
+  </head>
+  <body role="document">
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="setup-env-tier.html" title="Select the DataONE Tier"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="setup-env-authn-ca.html" title="Install CILogon and DataONE root CA certificates"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">DataONE Generic Member Node None documentation</a> &raquo;</li>
+          <li class="nav-item nav-item-1"><a href="setup.html" >GMN setup overview</a> &raquo;</li>
+          <li class="nav-item nav-item-2"><a href="setup-env.html" accesskey="U">Registering the new MN in a DataONE environment</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="register-the-new-member-node-with-dataone">
+<h1>Register the new Member Node with DataONE<a class="headerlink" href="#register-the-new-member-node-with-dataone" title="Permalink to this headline">¶</a></h1>
+<p>A Member Node (MN) integrates itself into DataONE through a process called Node
+Registration. Registering the MN allows the Coordinating Nodes (CNs) to
+synchronize content, index the metadata and resource maps, and replicate its
+content to other MNs.</p>
+<p>MNs go through a testing phase before being registered in the DataONE production
+environment used by the public. This document describes how to register the
+new MN in a test environment. When the MN is ready to be registered in the
+production environment, the same procedure is used.</p>
+<p>Registering the MN in a testing environment involves the following steps:</p>
+<ol class="arabic simple">
+<li>Creating a DataONE identity in the environment.</li>
+<li>Submitting a Node document. The Node document describes the MN and
+the level at which it will participate in the DataONE infrastructure.</li>
+<li>DataONE evaluates the submission. Upon approval, the registration is
+complete, and the Node is part of the DataONE infrastructure.</li>
+</ol>
+<p>Perform the steps in order, as each step depends on earlier steps.</p>
+<div class="section" id="create-a-dataone-identity">
+<span id="create-dataone-identity"></span><h2>Create a DataONE identity<a class="headerlink" href="#create-a-dataone-identity" title="Permalink to this headline">¶</a></h2>
+<p>This step must be performed by the person who will be the contact for the new
+MN. The contact person is often also the administrator for the MN.</p>
+<p>Each DataONE environment has a web-based Identity Manager where DataONE
+identities are created and maintained. To create a DataONE identity, you will
+use the Identity Manager to authenticate with a <a class="reference internal" href="glossary.html#term-cilogon"><span class="xref std std-term">CILogon</span></a>-recognized
+identity, and then attach your name and contact email. At this point, DataONE
+will validate the information manually.</p>
+<p>To register the administrative contact&#8217;s DataONE identity in the target
+environment, perform the following steps:</p>
+<ol class="arabic">
+<li><p class="first">Navigate to the Identity Manager of the target environment:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="21%" />
+<col width="79%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Environment</th>
+<th class="head">Identity Manager URL</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>Production</td>
+<td><a class="reference external" href="https://cn.dataone.org/portal">https://cn.dataone.org/portal</a></td>
+</tr>
+<tr class="row-odd"><td>Staging</td>
+<td><a class="reference external" href="https://cn-stage.test.dataone.org/portal">https://cn-stage.test.dataone.org/portal</a></td>
+</tr>
+<tr class="row-even"><td>Sandbox</td>
+<td><a class="reference external" href="https://cn-sandbox.test.dataone.org/portal">https://cn-sandbox.test.dataone.org/portal</a></td>
+</tr>
+<tr class="row-odd"><td>Development</td>
+<td><a class="reference external" href="https://cn-dev.test.dataone.org/portal">https://cn-dev.test.dataone.org/portal</a></td>
+</tr>
+</tbody>
+</table>
+</li>
+<li><p class="first">Follow the prompts to authenticate against your <a class="reference internal" href="glossary.html#term-identity-provider"><span class="xref std std-term">Identity Provider</span></a>. If
+your institution is not listed, you can use a Google or ProtectNetwork account.</p>
+</li>
+<li><p class="first">Once authenticated and back at the DataONE portal, supply your name and email,
+and then press <strong>Register</strong></p>
+</li>
+<li><p class="first">Record (copy to clipboard) the identity string shown in the &#8216;Logged in as&#8217; field.
+This value is taken from the CILogon certificate issued when you authenticated
+against your chosen <a class="reference internal" href="glossary.html#term-identity-provider"><span class="xref std std-term">Identity Provider</span></a>, and is also a DataONE subject.</p>
+</li>
+<li><p class="first">Paste this value into the contactSubject field of the Node document you plan to
+submit in the next step.</p>
+</li>
+<li><p class="first">DataONE requires that DataONE subjects that are to be used as contacts for
+MNs be verified. To verify the account, send an email to <a class="reference external" href="mailto:support&#37;&#52;&#48;dataone&#46;org">support<span>&#64;</span>dataone<span>&#46;</span>org</a>.
+In the email, include the identity string obtained in the step above and request
+that the account be verified.  You do not need to wait for a reply to continue
+to the next step.</p>
+</li>
+</ol>
+</div>
+<div class="section" id="configure-the-member-node-information">
+<span id="id1"></span><h2>Configure the Member Node information<a class="headerlink" href="#configure-the-member-node-information" title="Permalink to this headline">¶</a></h2>
+<p>Most of the values that are set up in this section are described in the <a class="reference external" href="http://mule1.dataone.org/ArchitectureDocs-current/apis/Types.html#Types.Node">Node
+document section in the architecture documentation</a>.</p>
+<p>The Node document is a set of values that describe a MN or CN, its internet
+location, and the services it supports.</p>
+<blockquote>
+<div><p>Modify the following settings:</p>
+<ul>
+<li><p class="first">NODE_IDENTIFIER: A unique identifier for the node of the form
+urn:node:NODEID where NODEID is the node specific identifier. This value
+MUST NOT change for future implementations of the same node, whereas the
+baseURL may change in the future.</p>
+<p>NODEID is typically a short name or acronym. As the identifier must be
+unique, coordinate with your DataONE developer contact to establish your
+test and production identifiers. The conventions for these are
+<code class="docutils literal"><span class="pre">urn:node:mnTestNODEID</span></code> for the development, sandbox and staging
+environments and <code class="docutils literal"><span class="pre">urn:node:NODEID</span></code> for the production environment. For
+reference, see the <a class="reference external" href="http://mule1.dataone.org/OperationDocs/membernodes.html">list of current DataONE Nodes</a>.</p>
+<p>E.g.: urn:node:USGSCSAS (for production) and urn:node:TestUSGSCSAS (for
+testing).</p>
+</li>
+<li><p class="first">NODE_NAME: A human readable name of the Node. This name can be used as a label
+in many systems to represent the node, and thus should be short, but
+understandable.</p>
+<p>E.g.: USGS Core Sciences Clearinghouse</p>
+</li>
+<li><p class="first">NODE_DESCRIPTION: Description of a Node, explaining the community it serves
+and other relevant information about the node, such as what content is
+maintained by this node and any other free style notes.</p>
+<p>E.g.: US Geological Survey Core Science Metadata Clearinghouse archives
+metadata records describing datasets largely focused on wildlife biology,
+ecology, environmental science, temperature, geospatial data layers
+documenting land cover and stewardship (ownership and management), and more.</p>
+</li>
+<li><p class="first">NODE_BASEURL: The base URL of the node, indicating the protocol, fully
+qualified domain name, and path to the implementing service, excluding the
+version of the API.</p>
+<p>E.g.: https://server.example.edu/app/d1/mn</p>
+</li>
+<li><p class="first">NODE_SUBJECT: Specify the subject for this Node (retrieved from the client
+certificate provided by DataONE)</p>
+</li>
+<li><p class="first">NODE_CONTACT_SUBJECT: The appropriate person or group to contact regarding
+the disposition, management, and status of this Member Node. The
+contactSubject is an X.509 Distinguished Name for a person or group that can
+be used to look up current contact details (e.g., name, email address) for
+the contact in the DataONE Identity service. DataONE uses the contactSubject
+to provide notices of interest to DataONE nodes, including information such
+as policy changes, maintenance updates, node outage notifications, among
+other information useful for administering a node. Each node that is
+registered with DataONE must provide at least one contactSubject that has
+been verified with DataONE.</p>
+<p>The contactSubject must be the subject of the DataONE identity that was
+created in the <a class="reference internal" href="#create-dataone-identity"><span class="std std-ref">previous step</span></a>.</p>
+<p>E.g.: CN=My Name,O=Google,C=US,DC=cilogon,DC=org</p>
+</li>
+<li><p class="first">NODE_REPLICATE: Set to true if the node is willing to be a
+<a class="reference internal" href="glossary.html#term-replication-target"><span class="xref std std-term">replication target</span></a>, otherwise false.</p>
+</li>
+<li><p class="first">DATAONE_ROOT: Select the environment that matches the one that was
+selected in <a class="reference internal" href="setup-env.html"><span class="doc">Registering the new MN in a DataONE environment</span></a>.</p>
+<p>E.g.: <a class="reference external" href="https://cn-stage.dataone.org/cn">https://cn-stage.dataone.org/cn</a></p>
+</li>
+</ul>
+</div></blockquote>
+</div>
+<div class="section" id="submit-member-node-information-to-dataone">
+<h2>Submit Member Node information to DataONE<a class="headerlink" href="#submit-member-node-information-to-dataone" title="Permalink to this headline">¶</a></h2>
+<p>The Member Node information is submitted to DataONE in a Node document. GMN
+automatically generates the Node document based on the settings configured in
+the previous step.</p>
+<blockquote>
+<div><p>After editing <code class="docutils literal"><span class="pre">settings_site.py</span></code>, check if the Node document is successfully
+generated:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>$ su gmn
+$ python /var/local/dataone/gmn/lib/python2.7/site-packages/service/manage.py register_node_with_dataone --view
+</pre></div>
+</div>
+<p>If the Node document is successfully generated, an XML document will be
+displayed. For more information about this document, refer to
+<a class="reference external" href="http://mule1.dataone.org/ArchitectureDocs-current/apis/Types.html#Types.Node">http://mule1.dataone.org/ArchitectureDocs-current/apis/Types.html#Types.Node</a></p>
+<p>When the Node document is successfully generated and displayed, register the
+MN by submitting the Node document to DataONE. The Node document is
+automatically submitted to DataONE over a TLS/SSL connection that has been
+authenticated with the client side certificate configured in
+<a class="reference internal" href="setup-env-authn-client.html"><span class="doc">Install the DataONE client side certificate</span></a>.</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>$ python lib/python2.7/site-packages/service/manage.py register_node_with_dataone
+</pre></div>
+</div>
+<ul class="simple">
+<li>Check for a message saying that the registration was successful.</li>
+</ul>
+</div></blockquote>
+<p>After running the script or running an automated registration, the Member Node
+should email <a class="reference external" href="mailto:support&#37;&#52;&#48;dataone&#46;org">support<span>&#64;</span>dataone<span>&#46;</span>org</a> to notify of the registration request.</p>
+</div>
+<div class="section" id="dataone-evaluates-the-submission">
+<h2>DataONE evaluates the submission<a class="headerlink" href="#dataone-evaluates-the-submission" title="Permalink to this headline">¶</a></h2>
+<p>DataONE evaluates the submitted Node document and contacts the person listed as
+<em>contactSubject</em> in the Node document by email with the outcome of the approval
+process. After the node has been approved, the MN is part of the infrastructure
+environment in which it has been registered, and the CNs in that environment will
+start processing the information on the node.</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+    <p class="logo"><a href="http://dataone.org">
+      <img class="logo" src="_static/dataone_logo.png" alt="Logo"/>
+    </a></p>
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Register the new Member Node with DataONE</a><ul>
+<li><a class="reference internal" href="#create-a-dataone-identity">Create a DataONE identity</a></li>
+<li><a class="reference internal" href="#configure-the-member-node-information">Configure the Member Node information</a></li>
+<li><a class="reference internal" href="#submit-member-node-information-to-dataone">Submit Member Node information to DataONE</a></li>
+<li><a class="reference internal" href="#dataone-evaluates-the-submission">DataONE evaluates the submission</a></li>
+</ul>
+</li>
+</ul>
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation Overview</a><ul>
+  <li><a href="setup.html">GMN setup overview</a><ul>
+  <li><a href="setup-env.html">Registering the new MN in a DataONE environment</a><ul>
+      <li>Previous: <a href="setup-env-authn-ca.html" title="previous chapter">Install CILogon and DataONE root CA certificates</a></li>
+      <li>Next: <a href="setup-env-tier.html" title="next chapter">Select the DataONE Tier</a></li>
+  </ul></li>
+  </ul></li>
+  </ul></li>
+</ul>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+
+    <div class="footer">
+      &copy; Copyright <a href="http://www.dataone.org">2010-2012 Participating institutions in DataONE</a>.
+        [ <a href="_sources/setup-env-registration.txt"
+               rel="nofollow">Page Source</a> |
+          <a href='https://redmine.dataone.org/projects/d1/repository/changes/documents/Projects/cicore/architecture/api-documentation/source/setup-env-registration.txt'
+            rel="nofollow">Revision History</a> ]&nbsp;&nbsp;<br />
+      <div id="acknowledgement" style="text-align:center">
+        <p>This material is based upon work supported by the National Science Foundation
+          under Grant Numbers <a href="http://www.nsf.gov/awardsearch/showAward?AWD_ID=0830944">083094</a> and <a href="http://www.nsf.gov/awardsearch/showAward?AWD_ID=1430508">1430508</a>.</p>
+        <p>Any opinions, findings, and conclusions or recommendations expressed in this
+           material are those of the author(s) and do not necessarily reflect the views
+           of the National Science Foundation.</p>
+      </div>
+    </div>
+    <!--
+    <hr />
+     <div id="HCB_comment_box"><a href="http://www.htmlcommentbox.com">HTML Comment Box</a> is loading comments...</div>
+     <link rel="stylesheet" type="text/css" href="_static/skin.css" />
+     <script type="text/javascript" language="javascript" id="hcb">
+     /*<! -*/
+     (function()
+     {s=document.createElement("script");
+     s.setAttribute("type","text/javascript");
+     s.setAttribute("src", "http://www.htmlcommentbox.com/jread?page="+escape((typeof hcb_user !== "undefined" && hcb_user.PAGE)||(""+window.location)).replace("+","%2B")+"&mod=%241%24wq1rdBcg%24Gg8J5iYSHJWwAJtlYu/yU."+"&opts=21407&num=10");
+     if (typeof s!="undefined") document.getElementsByTagName("head")[0].appendChild(s);})();
+      /* ->*/
+     </script>
+   -->
+  </body>
+</html>

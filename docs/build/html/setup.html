@@ -1,0 +1,187 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>GMN setup overview &mdash; DataONE Generic Member Node None documentation</title>
+    
+    <link rel="stylesheet" href="_static/dataone.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     'None',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/sidebar.js"></script>
+    <link rel="top" title="DataONE Generic Member Node None documentation" href="index.html" />
+    <link rel="next" title="Local installation" href="setup-local.html" />
+    <link rel="prev" title="Generic Member Node (GMN)" href="index.html" />
+   
+  
+  <link media="only screen and (max-device-width: 480px)" href="_static/small_dataone.css" type= "text/css" rel="stylesheet" />
+
+  </head>
+  <body role="document">
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="setup-local.html" title="Local installation"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="index.html" title="Generic Member Node (GMN)"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">DataONE Generic Member Node None documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="gmn-setup-overview">
+<h1>GMN setup overview<a class="headerlink" href="#gmn-setup-overview" title="Permalink to this headline">¶</a></h1>
+<p>Setting up the DataONE Generic Member Node (<a class="reference internal" href="glossary.html#term-gmn"><span class="xref std std-term">GMN</span></a>).</p>
+<p>This procedure has been verified on Ubuntu 14.04 LTS (Server and Desktop).
+<a class="reference internal" href="setup-extra-centos.html"><span class="doc">Additional notes and instructions</span></a> are available for
+CentOS.</p>
+<p>It may be possible to deploy GMN using a different stack, such as one based on
+<a class="reference external" href="http://nginx.net/">nginx</a> and <a class="reference external" href="http://projects.unbit.it/uwsgi/wiki/">uWSGI</a>. Such setups are currently untested,
+but if they are attempted and prove to have benefits, please let us know.</p>
+<p>The GMN setup process has been broken down into two sections, each containing a
+series of steps. The first section describes how to set up an instance of GMN
+which can be used only locally. The second section describes how to join the GMN
+instance to DataONE. For testing GMN and learning about Member Nodes, only the
+first section need be completed. For exposing data to the DataONE federation and
+providing storage for replicas, both the first and second sections must be
+completed.</p>
+<p>Along with the steps in each section, some background information is provided.
+The actual steps that need to be performed are indented to separate them from
+the background information.</p>
+<p>Commands that need to be run from the shell are prefixed with &#8220;$&#8221;.</p>
+<p>The instructions describe an installation into subfolders of
+<code class="docutils literal"><span class="pre">/var/local/dataone/</span></code>. To install into another location, all related paths
+must be adjusted accordingly.</p>
+<p>The instructions describe how to set GMN up to run in a separate Apache Virtual
+Host on a fresh install of Ubuntu. General setup and configuration issues, such
+as issues that may be encountered when adding GMN to an existing server, are not
+covered.</p>
+<p>The GMN software stack is installed into a Python virtual environment to avoid
+potential conflicts with other Python software on the server.</p>
+<p>Use the <cite>Next</cite> link in the sidebar to get to the next page of steps after
+completing the current page.</p>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="setup-local.html">Local installation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="setup-local-hardware.html">Hardware requirements and configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="setup-local-d1-stack.html">Install the GMN software stack</a></li>
+<li class="toctree-l2"><a class="reference internal" href="setup-local-apache.html">Install and configure Apache</a></li>
+<li class="toctree-l2"><a class="reference internal" href="setup-local-postgresql.html">Install and configure PostgreSQL</a></li>
+<li class="toctree-l2"><a class="reference internal" href="setup-local-async.html">Configure the GMN asynchronous processes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="setup-local-authn-ca.html">Local Certificate Authority (CA)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="setup-local-authn-client.html">Install non-trusted client side certificate</a></li>
+<li class="toctree-l2"><a class="reference internal" href="setup-local-authn-server.html">Install non-trusted server side certificate</a></li>
+<li class="toctree-l2"><a class="reference internal" href="setup-local-basic-config.html">Basic Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="setup-local-final.html">Final configuration and startup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="setup-local-testing.html">Test the installation</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="setup-env.html">Registering the new MN in a DataONE environment</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="setup-env-authn-server.html">Obtain and install the server side certificate</a></li>
+<li class="toctree-l2"><a class="reference internal" href="setup-env-authn-client.html">Install the DataONE client side certificate</a></li>
+<li class="toctree-l2"><a class="reference internal" href="setup-env-authn-ca.html">Install CILogon and DataONE root CA certificates</a></li>
+<li class="toctree-l2"><a class="reference internal" href="setup-env-registration.html">Register the new Member Node with DataONE</a></li>
+<li class="toctree-l2"><a class="reference internal" href="setup-env-tier.html">Select the DataONE Tier</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="setup-extra.html">Optional setup</a></li>
+<li class="toctree-l1"><a class="reference internal" href="setup-extra-centos.html">Installing on CentOS 5.5</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="setup-extra-centos.html#platform">Platform</a></li>
+<li class="toctree-l2"><a class="reference internal" href="setup-extra-centos.html#python">Python</a></li>
+<li class="toctree-l2"><a class="reference internal" href="setup-extra-centos.html#gmn">GMN</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="setup-extra-resources.html">Resources</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="setup-extra-resources.html#add-dataone-test-certificate-to-system-wide-trusted-ca-store">Add DataONE test certificate to system wide trusted CA store</a></li>
+<li class="toctree-l2"><a class="reference internal" href="setup-extra-resources.html#integration-testing-using-certificates">Integration testing using certificates</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+    <p class="logo"><a href="http://dataone.org">
+      <img class="logo" src="_static/dataone_logo.png" alt="Logo"/>
+    </a></p><h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation Overview</a><ul>
+      <li>Previous: <a href="index.html" title="previous chapter">Generic Member Node (GMN)</a></li>
+      <li>Next: <a href="setup-local.html" title="next chapter">Local installation</a></li>
+  </ul></li>
+</ul>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+
+    <div class="footer">
+      &copy; Copyright <a href="http://www.dataone.org">2010-2012 Participating institutions in DataONE</a>.
+        [ <a href="_sources/setup.txt"
+               rel="nofollow">Page Source</a> |
+          <a href='https://redmine.dataone.org/projects/d1/repository/changes/documents/Projects/cicore/architecture/api-documentation/source/setup.txt'
+            rel="nofollow">Revision History</a> ]&nbsp;&nbsp;<br />
+      <div id="acknowledgement" style="text-align:center">
+        <p>This material is based upon work supported by the National Science Foundation
+          under Grant Numbers <a href="http://www.nsf.gov/awardsearch/showAward?AWD_ID=0830944">083094</a> and <a href="http://www.nsf.gov/awardsearch/showAward?AWD_ID=1430508">1430508</a>.</p>
+        <p>Any opinions, findings, and conclusions or recommendations expressed in this
+           material are those of the author(s) and do not necessarily reflect the views
+           of the National Science Foundation.</p>
+      </div>
+    </div>
+    <!--
+    <hr />
+     <div id="HCB_comment_box"><a href="http://www.htmlcommentbox.com">HTML Comment Box</a> is loading comments...</div>
+     <link rel="stylesheet" type="text/css" href="_static/skin.css" />
+     <script type="text/javascript" language="javascript" id="hcb">
+     /*<! -*/
+     (function()
+     {s=document.createElement("script");
+     s.setAttribute("type","text/javascript");
+     s.setAttribute("src", "http://www.htmlcommentbox.com/jread?page="+escape((typeof hcb_user !== "undefined" && hcb_user.PAGE)||(""+window.location)).replace("+","%2B")+"&mod=%241%24wq1rdBcg%24Gg8J5iYSHJWwAJtlYu/yU."+"&opts=21407&num=10");
+     if (typeof s!="undefined") document.getElementsByTagName("head")[0].appendChild(s);})();
+      /* ->*/
+     </script>
+   -->
+  </body>
+</html>

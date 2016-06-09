@@ -1,0 +1,217 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Supporting Modules &mdash; Custom Directives v0.1 documentation</title>
+    <link rel="stylesheet" href="_static/agogo.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '',
+        VERSION:     '0.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="Custom Directives v0.1 documentation" href="index.html" />
+    <link rel="prev" title="SQL Table" href="sqltable_example.html" /> 
+  </head>
+  <body>
+    <div class="header-wrapper">
+      <div class="header">
+        <h1><a href="index.html">Custom Directives v0.1 documentation</a></h1>
+        <div class="rel">
+          <a href="sqltable_example.html" title="SQL Table"
+             accesskey="P">previous</a> |
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a>
+        </div>
+       </div>
+    </div>
+
+    <div class="content-wrapper">
+      <div class="content">
+        <div class="document">
+            
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="module-utils.xls2sql">
+<span id="supporting-modules"></span><h1>Supporting Modules<a class="headerlink" href="#module-utils.xls2sql" title="Permalink to this headline">¶</a></h1>
+<p>Created on Sep 7, 2011</p>
+<p>&#64;author: vieglais</p>
+<p>Import a Excel worksheet as tables in an SQLite database.</p>
+<dl class="class">
+<dt id="utils.xls2sql.Xls2Sql">
+<em class="property">class </em><tt class="descclassname">utils.xls2sql.</tt><tt class="descname">Xls2Sql</tt><big>(</big><em>db=None</em><big>)</big><a class="headerlink" href="#utils.xls2sql.Xls2Sql" title="Permalink to this definition">¶</a></dt>
+<dd><p>Utility class that will import worksheets from an Excel workbook as
+tables in an SQL database.</p>
+<dl class="method">
+<dt id="utils.xls2sql.Xls2Sql.coerceType">
+<tt class="descname">coerceType</tt><big>(</big><em>val</em>, <em>typ</em><big>)</big><a class="headerlink" href="#utils.xls2sql.Xls2Sql.coerceType" title="Permalink to this definition">¶</a></dt>
+<dd><p>Try and coerce the supplied value to the indicated type.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>val</strong> &#8211; The value to coerce</li>
+<li><strong>typ</strong> &#8211; The target type</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="utils.xls2sql.Xls2Sql.createTables">
+<tt class="descname">createTables</tt><big>(</big><em>meta</em><big>)</big><a class="headerlink" href="#utils.xls2sql.Xls2Sql.createTables" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create a new table in the database using the column names contained
+in meta.</p>
+<p>meta is structured like:</p>
+<div class="highlight-python"><pre>meta = {name: {'start_row':
+               'columns': [{'name': column name, 
+                            'id': zero offset from left, 
+                            'type': sqlite type}, 
+                           ...],
+              },
+      }</pre>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="utils.xls2sql.Xls2Sql.getBookMeta">
+<tt class="descname">getBookMeta</tt><big>(</big><em>workbook</em>, <em>meta_row=0</em><big>)</big><a class="headerlink" href="#utils.xls2sql.Xls2Sql.getBookMeta" title="Permalink to this definition">¶</a></dt>
+<dd><p>Load a meta structure from the workbook.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>workbook</strong> &#8211; An openpyxl workbook object.</li>
+<li><strong>meta_row</strong> &#8211; Which row to read metadata (column names) from.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="utils.xls2sql.Xls2Sql.getSheetMeta">
+<tt class="descname">getSheetMeta</tt><big>(</big><em>worksheet</em>, <em>meta_row=0</em><big>)</big><a class="headerlink" href="#utils.xls2sql.Xls2Sql.getSheetMeta" title="Permalink to this definition">¶</a></dt>
+<dd><p>Attempt to read column names for sheet from the specified row.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>worksheet</strong> &#8211; Worksheet being examined</li>
+<li><strong>meta_row</strong> &#8211; Row of worksheet to be looked at.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="utils.xls2sql.Xls2Sql.guessColumnType">
+<tt class="descname">guessColumnType</tt><big>(</big><em>row=1</em>, <em>col=0</em><big>)</big><a class="headerlink" href="#utils.xls2sql.Xls2Sql.guessColumnType" title="Permalink to this definition">¶</a></dt>
+<dd><p>Place holder for code that will guess the type of the column. This is
+not really necessary for SQLite databases, as it figures stuff out on
+the fly.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="utils.xls2sql.Xls2Sql.load">
+<tt class="descname">load</tt><big>(</big><em>workbook</em>, <em>meta=None</em><big>)</big><a class="headerlink" href="#utils.xls2sql.Xls2Sql.load" title="Permalink to this definition">¶</a></dt>
+<dd><p>Load the supplied workbook into the database that was provided with
+the constructor.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>workbook</strong> &#8211; Path to an Excel file or an openpyxl workbook object</li>
+<li><strong>meta</strong> &#8211; Optional metadata structure to use instead of auto generated.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+          </div>
+        </div>
+      </div>
+        </div>
+        <div class="sidebar">
+          <h3>Table Of Contents</h3>
+          <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="install.html">Installing Custom Directives</a></li>
+<li class="toctree-l1"><a class="reference internal" href="csvfexample.html">CSVF Table</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sqltable_example.html">SQL Table</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="">Supporting Modules</a></li>
+</ul>
+
+          <h3 style="margin-top: 1.5em;">Search</h3>
+          <form class="search" action="search.html" method="get">
+            <input type="text" name="q" size="18" />
+            <input type="submit" value="Go" />
+            <input type="hidden" name="check_keywords" value="yes" />
+            <input type="hidden" name="area" value="default" />
+          </form>
+          <p class="searchtip" style="font-size: 90%">
+            Enter search terms or a module, class or function name.
+          </p>
+        </div>
+        <div class="clearer"></div>
+      </div>
+    </div>
+
+    <div class="footer-wrapper">
+      <div class="footer">
+        <div class="left">
+          <a href="sqltable_example.html" title="SQL Table"
+             >previous</a> |
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |
+          <a href="genindex.html" title="General Index"
+             >index</a>
+            <br/>
+            <a href="_sources/utilities.txt"
+               rel="nofollow">Show Source</a>
+        </div>
+
+        <div class="right">
+          
+    <div class="footer">
+        &copy; Copyright 2010, DataONE.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.7.
+    </div>
+        </div>
+        <div class="clearer"></div>
+      </div>
+    </div>
+
+  </body>
+</html>

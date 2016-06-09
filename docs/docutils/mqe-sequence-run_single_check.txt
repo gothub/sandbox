@@ -1,0 +1,38 @@
+  @startuml images/mqe-sequence-run_single_check.png
+  skinparam {
+        sequenceTitleFontColor black
+                sequenceTitleFontSize 16
+                sequenceTitleFontStyle normal
+                sequenceTitleFontName Lucida Bright
+        }
+        title: Run a Single Quality Check (run_check)
+
+        "Remote Client" -> "DataONE Quality Service": MN.QualityService(checkId, doc, pid)
+        activate "Remote Client"
+        activate "DataONE Quality Service"
+        "DataONE Quality Service" -> MNodeService : runQC(checkId, doc, pid)
+        activate "MNodeService"
+        MNodeService -> QCController : runCheck(checkId, doc, pid)
+        activate QCController
+        QCController -> QCMetadataManager : getCheckMetadata(checkId, dialect)
+        activate QCMetadataManager
+        QCMetadataManager --> QCController : checkMetadata
+        deactivate QCMetadataManager
+        QCController -> QCDispatcher : dispatchCheck(checkId, dialect)
+        activate QCDispatcher
+        QCDispatcher -> checkImpl : runCheckImpl(document)
+        activate checkImpl
+        checkImpl --> QCDispatcher : checkResults
+        deactivate checkImpl
+        QCDispatcher --> QCController : checkResults
+        deactivate QCDispatcher 
+        QCController -> QCResultsManager : storeResults(checkId, pid, dialect)
+        QCController --> MNodeService : checkReport
+        deactivate QCController
+        MNodeService --> "DataONE Quality Service" : checkReport
+        deactivate "MNodeService"
+        "DataONE Quality Service" --> "Remote Client" : serviceResponse
+        deactivate "DataONE Quality Service"
+        deactivate "Remote Client"
+
+  @enduml

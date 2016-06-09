@@ -1,0 +1,199 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Testing the replication processing &mdash; DataONE Generic Member Node None documentation</title>
+    
+    <link rel="stylesheet" href="_static/dataone.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     'None',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/sidebar.js"></script>
+    <link rel="top" title="DataONE Generic Member Node None documentation" href="index.html" />
+    <link rel="up" title="Implementation" href="impl.html" />
+    <link rel="next" title="Automatically generated documentation" href="generated.html" />
+    <link rel="prev" title="Testing and debugging" href="impl-test-general.html" />
+   
+  
+  <link media="only screen and (max-device-width: 480px)" href="_static/small_dataone.css" type= "text/css" rel="stylesheet" />
+
+  </head>
+  <body role="document">
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="generated.html" title="Automatically generated documentation"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="impl-test-general.html" title="Testing and debugging"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">DataONE Generic Member Node None documentation</a> &raquo;</li>
+          <li class="nav-item nav-item-1"><a href="impl.html" accesskey="U">Implementation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="testing-the-replication-processing">
+<h1>Testing the replication processing<a class="headerlink" href="#testing-the-replication-processing" title="Permalink to this headline">¶</a></h1>
+<p>The DataONE Test Utilities for Python includes the Replication Tester (RepTest),
+a Python app that performs basic testing of the replication functionality of a
+Tier 4 MN. This describes how to set GMN up for testing with RepTest.</p>
+<p>RepTest takes on the roles of the CN and another MN. So, for the test to be
+successful, GMN must be set up to accept RepTest both as a CN and another MN
+during the transfer of the object being replicated. GMN must also be set up to
+call back to RepTest during replication instead of to the root CN.</p>
+<div class="section" id="without-certificates">
+<h2>Without certificates<a class="headerlink" href="#without-certificates" title="Permalink to this headline">¶</a></h2>
+<p>The simplest way to test the replication functionality is to turn off access
+control for objects and the replication API methods in GMN. Of course, this
+means that the access control is not tested.</p>
+<p>&lt;TODO: Describe how to set this up&gt;</p>
+<div class="section" id="changing-root-cn">
+<h3>Changing root CN<a class="headerlink" href="#changing-root-cn" title="Permalink to this headline">¶</a></h3>
+<p>RepTest needs to be set up as the root CN for the GMN instance being tested.
+This is done by modifying <code class="docutils literal"><span class="pre">DATAONE_ROOT</span></code> in <code class="docutils literal"><span class="pre">settings_site.py</span></code> to point to
+RepTest. E.g., if RepTest is running on the same machine as GMN:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">DATAONE_ROOT</span> <span class="o">=</span> <span class="s1">&#39;http://localhost:8181&#39;</span>
+</pre></div>
+</div>
+<p>The port and network interface on which RepTest listens is configurable.</p>
+<div class="section" id="background">
+<h4>Background<a class="headerlink" href="#background" title="Permalink to this headline">¶</a></h4>
+<p>The first time that GMN handles a request after startup, it will call
+<code class="docutils literal"><span class="pre">CNCore.listNodes()</span></code> on the root CN in the environment in which it is set up
+to find information about the other nodes in the environment. GMN will perform
+this call at even intervals to refresh its cache of the information.</p>
+<p>When RepTest is set to be the root CN, RepTest receives this initial call.
+RepTest responds with a customized list of nodes holding only a CN and a MN.
+These nodes both point back to RepTest, thus setting the GMN instance up to
+accept calls from RepTest as if they originate from a CN. In addition, the
+replication related calls that GMN makes to the CN and MN replication
+counterpart become directed to RepTest, which uses them for orchestrating the
+replication process and checking that the MN is performing the replication
+correctly.</p>
+<p>If GMN is not set up to use RepTest as a root CN, RepTest will abort testing
+with a authentication related exception. For instance, if RepTest calls
+<code class="docutils literal"><span class="pre">MNRead.getReplica()</span></code>, the exception may look like the following:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">d1_common</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">exceptions</span><span class="o">.</span><span class="n">NotAuthorized</span><span class="p">:</span> <span class="n">name</span><span class="p">:</span> <span class="n">NotAuthorized</span>
+<span class="n">errorCode</span><span class="p">:</span> <span class="mi">401</span>
+<span class="n">detailCode</span><span class="p">:</span> <span class="mi">0</span>
+<span class="n">description</span><span class="p">:</span>
+  <span class="n">A</span> <span class="n">CN</span> <span class="n">has</span> <span class="ow">not</span> <span class="n">authorized</span> <span class="n">the</span> <span class="n">target</span> <span class="n">MN</span><span class="p">,</span> <span class="s2">&quot;public&quot;</span> <span class="n">to</span> <span class="n">create</span> <span class="n">a</span> <span class="n">replica</span> <span class="n">of</span> <span class="s2">&quot;anterior1.jpg&quot;</span><span class="o">.</span>
+  <span class="ne">Exception</span> <span class="n">received</span> <span class="kn">from</span> <span class="nn">the</span> <span class="n">CN</span><span class="p">:</span>
+  <span class="n">name</span><span class="p">:</span> <span class="n">NotAuthorized</span>
+  <span class="n">errorCode</span><span class="p">:</span> <span class="mi">401</span>
+  <span class="n">detailCode</span><span class="p">:</span> <span class="mi">4871</span>
+  <span class="n">description</span><span class="p">:</span> <span class="n">There</span> <span class="ow">is</span> <span class="n">no</span> <span class="n">Member</span> <span class="n">Node</span> <span class="n">registered</span> <span class="k">with</span> <span class="n">a</span> <span class="n">node</span> <span class="n">subject</span> <span class="n">matching</span> <span class="n">public</span>
+<span class="n">nodeId</span><span class="p">:</span> <span class="n">urn</span><span class="p">:</span><span class="n">node</span><span class="p">:</span><span class="n">mnDevGMN</span>
+</pre></div>
+</div>
+<p>This somewhat confusing error message is a NotAuthorized exception from GMN with
+a description field that contains the exception that was received from the CN
+which, in this case, is also a NotAuthorized exception.</p>
+<p>The exception is raised because GMN called a real CN to get authorization for a
+call to <code class="docutils literal"><span class="pre">MNRead.getReplica()</span></code>. Since the replication was initiated by RepTest
+and not the real CN, the real CN rejects the request.</p>
+</div>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+    <p class="logo"><a href="http://dataone.org">
+      <img class="logo" src="_static/dataone_logo.png" alt="Logo"/>
+    </a></p>
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Testing the replication processing</a><ul>
+<li><a class="reference internal" href="#without-certificates">Without certificates</a><ul>
+<li><a class="reference internal" href="#changing-root-cn">Changing root CN</a><ul>
+<li><a class="reference internal" href="#background">Background</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation Overview</a><ul>
+  <li><a href="impl.html">Implementation</a><ul>
+      <li>Previous: <a href="impl-test-general.html" title="previous chapter">Testing and debugging</a></li>
+      <li>Next: <a href="generated.html" title="next chapter">Automatically generated documentation</a></li>
+  </ul></li>
+  </ul></li>
+</ul>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+
+    <div class="footer">
+      &copy; Copyright <a href="http://www.dataone.org">2010-2012 Participating institutions in DataONE</a>.
+        [ <a href="_sources/impl-test-replication.txt"
+               rel="nofollow">Page Source</a> |
+          <a href='https://redmine.dataone.org/projects/d1/repository/changes/documents/Projects/cicore/architecture/api-documentation/source/impl-test-replication.txt'
+            rel="nofollow">Revision History</a> ]&nbsp;&nbsp;<br />
+      <div id="acknowledgement" style="text-align:center">
+        <p>This material is based upon work supported by the National Science Foundation
+          under Grant Numbers <a href="http://www.nsf.gov/awardsearch/showAward?AWD_ID=0830944">083094</a> and <a href="http://www.nsf.gov/awardsearch/showAward?AWD_ID=1430508">1430508</a>.</p>
+        <p>Any opinions, findings, and conclusions or recommendations expressed in this
+           material are those of the author(s) and do not necessarily reflect the views
+           of the National Science Foundation.</p>
+      </div>
+    </div>
+    <!--
+    <hr />
+     <div id="HCB_comment_box"><a href="http://www.htmlcommentbox.com">HTML Comment Box</a> is loading comments...</div>
+     <link rel="stylesheet" type="text/css" href="_static/skin.css" />
+     <script type="text/javascript" language="javascript" id="hcb">
+     /*<! -*/
+     (function()
+     {s=document.createElement("script");
+     s.setAttribute("type","text/javascript");
+     s.setAttribute("src", "http://www.htmlcommentbox.com/jread?page="+escape((typeof hcb_user !== "undefined" && hcb_user.PAGE)||(""+window.location)).replace("+","%2B")+"&mod=%241%24wq1rdBcg%24Gg8J5iYSHJWwAJtlYu/yU."+"&opts=21407&num=10");
+     if (typeof s!="undefined") document.getElementsByTagName("head")[0].appendChild(s);})();
+      /* ->*/
+     </script>
+   -->
+  </body>
+</html>

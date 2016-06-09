@@ -1,0 +1,268 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Local Certificate Authority (CA) &mdash; DataONE Generic Member Node None documentation</title>
+    
+    <link rel="stylesheet" href="_static/dataone.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     'None',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/sidebar.js"></script>
+    <link rel="top" title="DataONE Generic Member Node None documentation" href="index.html" />
+    <link rel="up" title="Local installation" href="setup-local.html" />
+    <link rel="next" title="Install non-trusted client side certificate" href="setup-local-authn-client.html" />
+    <link rel="prev" title="Configure the GMN asynchronous processes" href="setup-local-async.html" />
+   
+  
+  <link media="only screen and (max-device-width: 480px)" href="_static/small_dataone.css" type= "text/css" rel="stylesheet" />
+
+  </head>
+  <body role="document">
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="setup-local-authn-client.html" title="Install non-trusted client side certificate"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="setup-local-async.html" title="Configure the GMN asynchronous processes"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">DataONE Generic Member Node None documentation</a> &raquo;</li>
+          <li class="nav-item nav-item-1"><a href="setup.html" >GMN setup overview</a> &raquo;</li>
+          <li class="nav-item nav-item-2"><a href="setup-local.html" accesskey="U">Local installation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="local-certificate-authority-ca">
+<h1>Local Certificate Authority (CA)<a class="headerlink" href="#local-certificate-authority-ca" title="Permalink to this headline">¶</a></h1>
+<p>Authentication and authorization in the DataONE infrastructure is based on
+<a class="reference internal" href="glossary.html#term-x-509"><span class="xref std std-term">X.509</span></a> v3 certificates.</p>
+<p>This section describes how to set up a <a class="reference internal" href="glossary.html#term-ca"><span class="xref std std-term">CA</span></a>, configure GMN to trust the
+new CA and how to use the CA to generate <a class="reference internal" href="glossary.html#term-client-side-certificate"><span class="xref std std-term">client side certificate</span></a>s that
+can then be used for creating authenticated connections to GMN.</p>
+<p>MNs that are registered with DataONE must trust the <a class="reference internal" href="glossary.html#term-cilogon"><span class="xref std std-term">CILogon</span></a> CAs. But,
+for security, CILogon issues certificates that are only valid for 18 hours, and
+stand-alone nodes do not need to trust CILogon. So both stand-alone and
+registered instances of GMN are set up to trust a locally generated CA. For
+stand-alone instances, this is typically the only trusted CA. Registered
+instances also trust CILogon and DataONE. The local CA enables the administrator
+of the MN to generate long lived certificates that can be used for creating
+authenticated connections to the MN. Common uses for these certificates on both
+stand-alone and registered GMN instances include enabling automated connections
+to the MN for performing tasks such as populating the Node with Science Objects.
+In addition, these certificates are used for regular user oriented tasks such as
+accessing the node via the the DataONE Command Line Client on stand-alone nodes.</p>
+<div class="section" id="setting-up-the-local-ca">
+<h2>Setting up the local CA<a class="headerlink" href="#setting-up-the-local-ca" title="Permalink to this headline">¶</a></h2>
+<p>The local CA used for signing certificates that will be trusted by this (and no
+other) instance of GMN.</p>
+<blockquote>
+<div><p>Generate local CA folders:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>$ sudo mkdir -p /var/local/dataone/certs/local_ca/{certs,newcerts,private}
+$ cd /var/local/dataone/certs/local_ca
+</pre></div>
+</div>
+<p>Copy custom OpenSSL configuration file:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>$ sudo cp /var/local/dataone/gmn/lib/python2.7/site-packages/deployment/openssl.cnf .
+</pre></div>
+</div>
+<p>Create the certificate database file:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>$ sudo touch index.txt
+</pre></div>
+</div>
+<p>Generate the private key and certificate signing request (CSR):</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>$ sudo openssl req -config ./openssl.cnf -new -newkey rsa:2048 \
+-keyout private/ca_key.pem -out ca_csr.pem
+</pre></div>
+</div>
+<p>Enter a password for the private key. Anyone who gains access to the key can
+create certificates that will be trusted by your MN unless you protect it with
+a strong password.</p>
+<p>You will be prompted for the information that will become the DN of your CA
+certificate. All fields should be filled with valid information. For Common
+Name, use something like &#8220;CA for GMN Client Side Certificates&#8221;. Since the DN
+of the signing CA is included in all signed certificates, this helps indicate
+the intended use for certificates signed by this CA. The Organization Name
+indicates where the client side certificates are valid.</p>
+<p>Self-sign the CA:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>$ sudo openssl ca -config ./openssl.cnf -create_serial  \
+-keyfile private/ca_key.pem -selfsign -extensions v3_ca_has_san \
+-out ca_cert.pem -infiles ca_csr.pem
+</pre></div>
+</div>
+<p>Answer &#8220;y&#8221; on the prompts.</p>
+<p>The CSR is no longer needed and can be removed:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>$ sudo rm ca_csr.pem
+</pre></div>
+</div>
+</div></blockquote>
+</div>
+<div class="section" id="generate-a-client-side-certificate">
+<h2>Generate a client side certificate<a class="headerlink" href="#generate-a-client-side-certificate" title="Permalink to this headline">¶</a></h2>
+<p>Generate a client side certificate that is signed by the local CA.</p>
+<p>This certificate will be used in any outgoing connections made by the GMN
+instance while it is operating in stand-alone mode and for initial tests.</p>
+<p>If more client side certificates are needed in the future, just repeat this
+section, changing the filenames of the client_*.pem files.</p>
+<blockquote>
+<div><p>Generate the private key and certificate signing request (CSR):</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>$ cd /var/local/dataone/certs/local_ca
+$ sudo openssl req -config ./openssl.cnf -new -newkey rsa:2048 -nodes \
+-keyout private/client_key.pem -out client_csr.pem
+</pre></div>
+</div>
+<p>You will be prompted for the information that will become the DN of your
+client side certificate. All fields should be filled with valid information.
+For the Common Name, provide a brief and unique name such as, &#8220;localClient&#8221;.</p>
+</div></blockquote>
+<p>GMN does not include a system for securely managing the password for the private
+key of the client side certificate so the password is removed.</p>
+<blockquote>
+<div><p>Remove the password from the private key:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>$ sudo openssl rsa -in private/client_key.pem \
+-out private/client_key_nopassword.pem
+</pre></div>
+</div>
+</div></blockquote>
+<p>The private key implicitly contains the public key. For some use cases, it
+can be convenient to split out the public key.</p>
+<blockquote>
+<div><p>Split public key from private key:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>$ sudo openssl rsa -in private/client_key_nopassword.pem -pubout \
+-out client_public_key.pem
+</pre></div>
+</div>
+<p>Sign the CSR for the client side certificate with the local CA:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>$ sudo openssl ca -config ./openssl.cnf -in client_csr.pem \
+-out client_cert.pem
+</pre></div>
+</div>
+<p>Answer &#8220;y&#8221; on the prompts.</p>
+<p>The CSR is no longer needed and can be removed:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>$ sudo rm client_csr.pem
+</pre></div>
+</div>
+</div></blockquote>
+<p>You now have a local CA root certificate and a certificate signed by that root:</p>
+<div class="line-block">
+<div class="line"><code class="docutils literal"><span class="pre">ca_cert.pem</span></code>: The CA root certificate</div>
+<div class="line"><code class="docutils literal"><span class="pre">private/ca_key.pem</span></code>: The CA root cert private key</div>
+<div class="line"><br /></div>
+<div class="line"><code class="docutils literal"><span class="pre">client_cert.pem</span></code>: The client side certificate</div>
+<div class="line"><code class="docutils literal"><span class="pre">private/client_key.pem</span></code>: The client side certificate private key</div>
+<div class="line"><code class="docutils literal"><span class="pre">private/client_key_nopassword.pem</span></code>: The client side certificate private key without password</div>
+<div class="line"><code class="docutils literal"><span class="pre">client_public_key.pem</span></code>: The client side certificate public key</div>
+</div>
+</div>
+<div class="section" id="set-gmn-up-to-trust-the-local-ca-root-certificate">
+<h2>Set GMN up to trust the local CA root certificate<a class="headerlink" href="#set-gmn-up-to-trust-the-local-ca-root-certificate" title="Permalink to this headline">¶</a></h2>
+<blockquote>
+<div><p>Add the local CA that was just created to the CAs trusted by GMN:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>$ cd /var/local/dataone/certs/local_ca
+$ sudo mkdir -p ../ca
+$ sudo cp ca_cert.pem ../ca/local_ca.pem
+$ sudo c_rehash ../ca
+</pre></div>
+</div>
+</div></blockquote>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+    <p class="logo"><a href="http://dataone.org">
+      <img class="logo" src="_static/dataone_logo.png" alt="Logo"/>
+    </a></p>
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Local Certificate Authority (CA)</a><ul>
+<li><a class="reference internal" href="#setting-up-the-local-ca">Setting up the local CA</a></li>
+<li><a class="reference internal" href="#generate-a-client-side-certificate">Generate a client side certificate</a></li>
+<li><a class="reference internal" href="#set-gmn-up-to-trust-the-local-ca-root-certificate">Set GMN up to trust the local CA root certificate</a></li>
+</ul>
+</li>
+</ul>
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation Overview</a><ul>
+  <li><a href="setup.html">GMN setup overview</a><ul>
+  <li><a href="setup-local.html">Local installation</a><ul>
+      <li>Previous: <a href="setup-local-async.html" title="previous chapter">Configure the GMN asynchronous processes</a></li>
+      <li>Next: <a href="setup-local-authn-client.html" title="next chapter">Install non-trusted client side certificate</a></li>
+  </ul></li>
+  </ul></li>
+  </ul></li>
+</ul>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+
+    <div class="footer">
+      &copy; Copyright <a href="http://www.dataone.org">2010-2012 Participating institutions in DataONE</a>.
+        [ <a href="_sources/setup-local-authn-ca.txt"
+               rel="nofollow">Page Source</a> |
+          <a href='https://redmine.dataone.org/projects/d1/repository/changes/documents/Projects/cicore/architecture/api-documentation/source/setup-local-authn-ca.txt'
+            rel="nofollow">Revision History</a> ]&nbsp;&nbsp;<br />
+      <div id="acknowledgement" style="text-align:center">
+        <p>This material is based upon work supported by the National Science Foundation
+          under Grant Numbers <a href="http://www.nsf.gov/awardsearch/showAward?AWD_ID=0830944">083094</a> and <a href="http://www.nsf.gov/awardsearch/showAward?AWD_ID=1430508">1430508</a>.</p>
+        <p>Any opinions, findings, and conclusions or recommendations expressed in this
+           material are those of the author(s) and do not necessarily reflect the views
+           of the National Science Foundation.</p>
+      </div>
+    </div>
+    <!--
+    <hr />
+     <div id="HCB_comment_box"><a href="http://www.htmlcommentbox.com">HTML Comment Box</a> is loading comments...</div>
+     <link rel="stylesheet" type="text/css" href="_static/skin.css" />
+     <script type="text/javascript" language="javascript" id="hcb">
+     /*<! -*/
+     (function()
+     {s=document.createElement("script");
+     s.setAttribute("type","text/javascript");
+     s.setAttribute("src", "http://www.htmlcommentbox.com/jread?page="+escape((typeof hcb_user !== "undefined" && hcb_user.PAGE)||(""+window.location)).replace("+","%2B")+"&mod=%241%24wq1rdBcg%24Gg8J5iYSHJWwAJtlYu/yU."+"&opts=21407&num=10");
+     if (typeof s!="undefined") document.getElementsByTagName("head")[0].appendChild(s);})();
+      /* ->*/
+     </script>
+   -->
+  </body>
+</html>

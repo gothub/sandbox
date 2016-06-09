@@ -1,0 +1,71 @@
+CSVF Table
+===========
+
+The csvftable directive is the same as csvtable except that the columns and 
+their order to be displayed can be specified by a *columns* parameter.
+
+:Directive-Type: ``csvftable``
+:Doctree Element: ``table``
+:Directive Arguments: 1,optional (table title)
+:Directive Options: Possible
+:Directive Content: A CSV (comma-separated values) table
+
+
+The following options (in addtion to the standard csv-table directives) are
+recognized:
+
+``columns``: integer[ integer ...]
+    A comma- or space-separated list of columns to include in the rendered
+    output. The columns are numbered from left to right, starting with "1" for
+    the left-most column in the CSV source. Default is to include all columns
+    in the order they appear in the CSV source.
+
+
+Example
+-------
+
+Given the csv file:
+
+.. include:: csv-data/example.csv
+   :literal:
+ 
+We can use the csvftable directive to render only a portion of the table and 
+specify the ordering of columns.  For example::
+
+  .. csvftable:: Example of CSVF table
+     :header-rows: 1
+     :widths: 10 10 20
+     :columns: 1 2 3
+     :file: csv-data/example.csv
+
+renders as:
+
+.. csvftable:: Example of CSVF table
+   :header-rows: 1
+   :widths: 10 10 20
+   :columns: 1 2 3
+   :file: csv-data/example.csv
+
+and::
+
+  .. csvftable:: Example of CSVF table
+     :header-rows: 1
+     :widths: 20 10 10 10
+     :columns: 3 2 1 4
+     :file: csv-data/example.csv
+   
+renders as:
+
+.. csvftable:: Example of CSVF table
+   :header-rows: 1
+   :widths: 20 10 10 10
+   :columns: 3 2 1 4
+   :file: csv-data/example.csv
+
+
+Module
+------
+
+.. automodule:: csvftable
+   :members:
+   :undoc-members:

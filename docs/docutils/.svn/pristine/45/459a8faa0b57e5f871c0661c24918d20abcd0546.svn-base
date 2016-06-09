@@ -1,0 +1,40 @@
+Example of CSVF Table
+=====================
+
+Given the csv file:
+
+.. include:: csv-data/example.csv
+   :literal:
+ 
+We can use the csvftable directive to render only a portion of the table and 
+specify the ordering of columns.  For example::
+
+  .. csvftable:: Example of CSVF table
+     :header-rows: 1
+     :widths: 10 10 20
+     :columns: 1 2 3
+     :file: csv-data/example.csv
+
+renders as:
+
+.. csvftable:: Example of CSVF table
+   :header-rows: 1
+   :widths: 10 10 20
+   :columns: 1 2 3
+   :file: csv-data/example.csv
+
+and::
+
+  .. csvftable:: Example of CSVF table
+     :header-rows: 1
+     :widths: 20 10 10 10
+     :columns: 3 2 1 4
+     :file: csv-data/example.csv
+   
+renders as:
+
+.. csvftable:: Example of CSVF table
+   :header-rows: 1
+   :widths: 20 10 10 10
+   :columns: 3 2 1 4
+   :file: csv-data/example.csv

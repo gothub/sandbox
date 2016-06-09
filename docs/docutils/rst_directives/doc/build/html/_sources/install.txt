@@ -1,0 +1,40 @@
+Installing Custom Directives
+============================
+
+Docutils
+--------
+
+For installation to use with the standards docutils tools, follow the directions 
+available available at the `docutils site`_.
+
+.. _docutils site: http://docutils.sourceforge.net/docs/howto/rst-directives.html
+
+
+Sphinx
+------
+
+Installation for use with Sphinx_ is as simple as ensuring the directive is
+available on the ``PYTHONPATH`` and registering it within the Sphinx project's
+``conf.py``. For example:
+
+.. code-block:: python
+
+  # extract from conf.py for this Sphinx project
+  import sys, os
+  
+  # If extensions (or modules to document with autodoc) are in another directory,
+  # add these directories to sys.path here. If the directory is relative to the
+  # documentation root, use os.path.abspath to make it absolute, like shown here.
+  #sys.path.append(os.path.abspath('.'))
+  
+  # -- General configuration -----------------------------------------------------
+  
+  sys.path.append(os.path.abspath("../.."))
+  from csvftable import CSVFTable
+  from docutils.parsers.rst import directives
+  directives.register_directive('csvftable', CSVFTable)
+
+
+
+
+.. _Sphinx: http://sphinx.pocoo.org/contents.html

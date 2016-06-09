@@ -1,0 +1,146 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Installing Custom Directives &mdash; Custom Directives v0.1 documentation</title>
+    <link rel="stylesheet" href="_static/agogo.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '',
+        VERSION:     '0.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="Custom Directives v0.1 documentation" href="index.html" />
+    <link rel="next" title="CSVF Table" href="csvfexample.html" />
+    <link rel="prev" title="Custom Docutils Directives" href="index.html" /> 
+  </head>
+  <body>
+    <div class="header-wrapper">
+      <div class="header">
+        <h1><a href="index.html">Custom Directives v0.1 documentation</a></h1>
+        <div class="rel">
+          <a href="index.html" title="Custom Docutils Directives"
+             accesskey="P">previous</a> |
+          <a href="csvfexample.html" title="CSVF Table"
+             accesskey="N">next</a> |
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a>
+        </div>
+       </div>
+    </div>
+
+    <div class="content-wrapper">
+      <div class="content">
+        <div class="document">
+            
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="installing-custom-directives">
+<h1>Installing Custom Directives<a class="headerlink" href="#installing-custom-directives" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="docutils">
+<h2>Docutils<a class="headerlink" href="#docutils" title="Permalink to this headline">¶</a></h2>
+<p>For installation to use with the standards docutils tools, follow the directions
+available available at the <a class="reference external" href="http://docutils.sourceforge.net/docs/howto/rst-directives.html">docutils site</a>.</p>
+</div>
+<div class="section" id="sphinx">
+<h2>Sphinx<a class="headerlink" href="#sphinx" title="Permalink to this headline">¶</a></h2>
+<p>Installation for use with <a class="reference external" href="http://sphinx.pocoo.org/contents.html">Sphinx</a> is as simple as ensuring the directive is
+available on the <tt class="docutils literal"><span class="pre">PYTHONPATH</span></tt> and registering it within the Sphinx project&#8217;s
+<tt class="docutils literal"><span class="pre">conf.py</span></tt>. For example:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="c"># extract from conf.py for this Sphinx project</span>
+<span class="kn">import</span> <span class="nn">sys</span><span class="o">,</span> <span class="nn">os</span>
+
+<span class="c"># If extensions (or modules to document with autodoc) are in another directory,</span>
+<span class="c"># add these directories to sys.path here. If the directory is relative to the</span>
+<span class="c"># documentation root, use os.path.abspath to make it absolute, like shown here.</span>
+<span class="c">#sys.path.append(os.path.abspath(&#39;.&#39;))</span>
+
+<span class="c"># -- General configuration -----------------------------------------------------</span>
+
+<span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="s">&quot;../..&quot;</span><span class="p">))</span>
+<span class="kn">from</span> <span class="nn">csvftable</span> <span class="kn">import</span> <span class="n">CSVFTable</span>
+<span class="kn">from</span> <span class="nn">docutils.parsers.rst</span> <span class="kn">import</span> <span class="n">directives</span>
+<span class="n">directives</span><span class="o">.</span><span class="n">register_directive</span><span class="p">(</span><span class="s">&#39;csvftable&#39;</span><span class="p">,</span> <span class="n">CSVFTable</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+        </div>
+        <div class="sidebar">
+          <h3>Table Of Contents</h3>
+          <ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="">Installing Custom Directives</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#docutils">Docutils</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#sphinx">Sphinx</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="csvfexample.html">CSVF Table</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sqltable_example.html">SQL Table</a></li>
+<li class="toctree-l1"><a class="reference internal" href="utilities.html">Supporting Modules</a></li>
+</ul>
+
+          <h3 style="margin-top: 1.5em;">Search</h3>
+          <form class="search" action="search.html" method="get">
+            <input type="text" name="q" size="18" />
+            <input type="submit" value="Go" />
+            <input type="hidden" name="check_keywords" value="yes" />
+            <input type="hidden" name="area" value="default" />
+          </form>
+          <p class="searchtip" style="font-size: 90%">
+            Enter search terms or a module, class or function name.
+          </p>
+        </div>
+        <div class="clearer"></div>
+      </div>
+    </div>
+
+    <div class="footer-wrapper">
+      <div class="footer">
+        <div class="left">
+          <a href="index.html" title="Custom Docutils Directives"
+             >previous</a> |
+          <a href="csvfexample.html" title="CSVF Table"
+             >next</a> |
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |
+          <a href="genindex.html" title="General Index"
+             >index</a>
+            <br/>
+            <a href="_sources/install.txt"
+               rel="nofollow">Show Source</a>
+        </div>
+
+        <div class="right">
+          
+    <div class="footer">
+        &copy; Copyright 2010, DataONE.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.7.
+    </div>
+        </div>
+        <div class="clearer"></div>
+      </div>
+    </div>
+
+  </body>
+</html>

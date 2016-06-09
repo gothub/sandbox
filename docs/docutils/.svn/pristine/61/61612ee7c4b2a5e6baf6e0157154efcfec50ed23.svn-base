@@ -1,0 +1,271 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>SQL Table &mdash; Custom Directives v0.1 documentation</title>
+    <link rel="stylesheet" href="_static/agogo.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '',
+        VERSION:     '0.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="Custom Directives v0.1 documentation" href="index.html" />
+    <link rel="next" title="Supporting Modules" href="utilities.html" />
+    <link rel="prev" title="CSVF Table" href="csvfexample.html" /> 
+  </head>
+  <body>
+    <div class="header-wrapper">
+      <div class="header">
+        <h1><a href="index.html">Custom Directives v0.1 documentation</a></h1>
+        <div class="rel">
+          <a href="csvfexample.html" title="CSVF Table"
+             accesskey="P">previous</a> |
+          <a href="utilities.html" title="Supporting Modules"
+             accesskey="N">next</a> |
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a>
+        </div>
+       </div>
+    </div>
+
+    <div class="content-wrapper">
+      <div class="content">
+        <div class="document">
+            
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="sql-table">
+<h1>SQL Table<a class="headerlink" href="#sql-table" title="Permalink to this headline">¶</a></h1>
+<p>The sqltable directive provides a mechanism for populating a table using content
+drawn from an SQL SELECT statement.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Directive-Type:</th><td class="field-body"><tt class="docutils literal"><span class="pre">sqltable</span></tt></td>
+</tr>
+<tr class="field"><th class="field-name" colspan="2">Doctree Element:</th></tr>
+<tr class="field"><td>&nbsp;</td><td class="field-body"><tt class="docutils literal"><span class="pre">table</span></tt></td>
+</tr>
+<tr class="field"><th class="field-name" colspan="2">Directive Arguments:</th></tr>
+<tr class="field"><td>&nbsp;</td><td class="field-body">3, optional (table title)</td>
+</tr>
+<tr class="field"><th class="field-name" colspan="2">Directive Options:</th></tr>
+<tr class="field"><td>&nbsp;</td><td class="field-body">Possible</td>
+</tr>
+<tr class="field"><th class="field-name" colspan="2">Directive Content:</th></tr>
+<tr class="field"><td>&nbsp;</td><td class="field-body">An SQL data source</td>
+</tr>
+</tbody>
+</table>
+<p>The following options are recognized:</p>
+<p><tt class="docutils literal"><span class="pre">header</span></tt>: Comma delimited list of heading column names.</p>
+<p><tt class="docutils literal"><span class="pre">widths</span></tt>: [int, ...], relative widths of the table columns.</p>
+<dl class="docutils">
+<dt><tt class="docutils literal"><span class="pre">driver</span></tt>: The driver name to use for connecting to the database. For Excel</dt>
+<dd>spreadsheets, use &#8220;xlsx&#8221;. For SQLite databases, use &#8220;sqlite3&#8221;.</dd>
+<dt><tt class="docutils literal"><span class="pre">source</span></tt>: The data source that will be passed on to the driver for connecting</dt>
+<dd>to the database. For &#8220;xlsx&#8221; use the path to the spreadsheet. For
+&#8220;sqlite3&#8221;, use the path to the sqlite3 database file.</dd>
+</dl>
+<p><tt class="docutils literal"><span class="pre">sql</span></tt>: string, SQL that will be used to retrieve the tablular data.</p>
+<p>Note that for now the table header values must be specified.</p>
+<div class="section" id="example">
+<h2>Example<a class="headerlink" href="#example" title="Permalink to this headline">¶</a></h2>
+<p>Given an XLSX file, <tt class="docutils literal"><span class="pre">data/test.xlsx</span></tt> containing a work sheet <tt class="docutils literal"><span class="pre">Sheet1</span></tt> we
+can use the sqltable directive to render all or a portion of the table.</p>
+<p>For example:</p>
+<div class="highlight-python"><pre>.. sqltable:: Example of SQL table
+   :header: Name, Age, Folly, Date
+   :widths: 10 10 20 10
+   :driver: xlsx
+   :source: source/data/test.xlsx
+   :sql: SELECT * FROM Sheet1 WHERE Age &gt; 12;</pre>
+</div>
+<p>Renders as:</p>
+<table border="1" class="docutils">
+<caption>Example</caption>
+<colgroup>
+<col width="20%" />
+<col width="20%" />
+<col width="40%" />
+<col width="20%" />
+</colgroup>
+<thead valign="bottom">
+<tr><th class="head">Name</th>
+<th class="head">Age</th>
+<th class="head">Folly</th>
+<th class="head">Date</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr><td>Jane</td>
+<td>14</td>
+<td>Running fast</td>
+<td>2010-01-11 00:00:00</td>
+</tr>
+<tr><td>Bob</td>
+<td>48</td>
+<td>Driving range</td>
+<td>1998-08-21 00:00:00</td>
+</tr>
+<tr><td>Sue</td>
+<td>32</td>
+<td>Epicurial facilitation</td>
+<td>2011-04-15 00:00:00</td>
+</tr>
+<tr><td>Rene</td>
+<td>36</td>
+<td>Speed</td>
+<td>2009-07-12 00:00:00</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="module-sqltable">
+<span id="module"></span><h2>Module<a class="headerlink" href="#module-sqltable" title="Permalink to this headline">¶</a></h2>
+<p>Implements the SQLTable docutils directive.</p>
+<dl class="docutils">
+<dt>License</dt>
+<dd><div class="first last highlight-python"><pre>This work was created by participants in the DataONE project, and is
+jointly copyrighted by participating institutions in DataONE. For
+more information on DataONE, see our web site at http://dataone.org.
+
+  Copyright 2011
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+  http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.</pre>
+</div>
+</dd>
+</dl>
+<p>SQLTable is an extension to docutils reStructuredText processor which adds
+the ability to pull table content from an SQL data source, a CSV file, or
+an Excel spread sheet. <a class="reference external" href="http://code.google.com/p/sqlite-manager/">SQLManager</a> is a convenient tool for working with
+SQLite databases.</p>
+<p>Project: DataONE
+Author: Dave Vieglais</p>
+<p>Example for use in Sphinx, add to conf.py after <tt class="docutils literal"><span class="pre">import</span> <span class="pre">sys,</span> <span class="pre">os</span></tt>:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="c">#Import the SQLTable directive RST extension</span>
+<span class="kn">from</span> <span class="nn">sqltable</span> <span class="kn">import</span> <span class="n">SQLTable</span>
+<span class="kn">from</span> <span class="nn">docutils.parsers.rst</span> <span class="kn">import</span> <span class="n">directives</span>
+<span class="n">directives</span><span class="o">.</span><span class="n">register_directive</span><span class="p">(</span><span class="s">&#39;sql-table&#39;</span><span class="p">,</span> <span class="n">SQLTable</span><span class="p">)</span>
+</pre></div>
+</div>
+<dl class="class">
+<dt id="sqltable.SQLTable">
+<em class="property">class </em><tt class="descclassname">sqltable.</tt><tt class="descname">SQLTable</tt><big>(</big><em>name</em>, <em>arguments</em>, <em>options</em>, <em>content</em>, <em>lineno</em>, <em>content_offset</em>, <em>block_text</em>, <em>state</em>, <em>state_machine</em><big>)</big><a class="headerlink" href="#sqltable.SQLTable" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="method">
+<dt id="sqltable.SQLTable.check_requirements">
+<tt class="descname">check_requirements</tt><big>(</big><big>)</big><a class="headerlink" href="#sqltable.SQLTable.check_requirements" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="sqltable.SQLTable.get_sql_data">
+<tt class="descname">get_sql_data</tt><big>(</big><big>)</big><a class="headerlink" href="#sqltable.SQLTable.get_sql_data" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns rows, max_cols</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="sqltable.SQLTable.process_header_option">
+<tt class="descname">process_header_option</tt><big>(</big><big>)</big><a class="headerlink" href="#sqltable.SQLTable.process_header_option" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns table_head</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="sqltable.SQLTable.run">
+<tt class="descname">run</tt><big>(</big><big>)</big><a class="headerlink" href="#sqltable.SQLTable.run" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+        </div>
+        <div class="sidebar">
+          <h3>Table Of Contents</h3>
+          <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="install.html">Installing Custom Directives</a></li>
+<li class="toctree-l1"><a class="reference internal" href="csvfexample.html">CSVF Table</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="">SQL Table</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#example">Example</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-sqltable">Module</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="utilities.html">Supporting Modules</a></li>
+</ul>
+
+          <h3 style="margin-top: 1.5em;">Search</h3>
+          <form class="search" action="search.html" method="get">
+            <input type="text" name="q" size="18" />
+            <input type="submit" value="Go" />
+            <input type="hidden" name="check_keywords" value="yes" />
+            <input type="hidden" name="area" value="default" />
+          </form>
+          <p class="searchtip" style="font-size: 90%">
+            Enter search terms or a module, class or function name.
+          </p>
+        </div>
+        <div class="clearer"></div>
+      </div>
+    </div>
+
+    <div class="footer-wrapper">
+      <div class="footer">
+        <div class="left">
+          <a href="csvfexample.html" title="CSVF Table"
+             >previous</a> |
+          <a href="utilities.html" title="Supporting Modules"
+             >next</a> |
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |
+          <a href="genindex.html" title="General Index"
+             >index</a>
+            <br/>
+            <a href="_sources/sqltable_example.txt"
+               rel="nofollow">Show Source</a>
+        </div>
+
+        <div class="right">
+          
+    <div class="footer">
+        &copy; Copyright 2010, DataONE.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.7.
+    </div>
+        </div>
+        <div class="clearer"></div>
+      </div>
+    </div>
+
+  </body>
+</html>
