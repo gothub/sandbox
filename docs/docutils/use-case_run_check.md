@@ -26,7 +26,7 @@ check is run. The quality check results are stored in the repository and also re
 
 A quality check request is sent to the DataONE Quality Service.
 
-![Alt text](./images/mqe-run-single-check_sequence.txt)
+![Alt text](./images/mqe-run_single_check-sequence.txt)
 **Figure 1.** Sequence Diagram for Use Case 'run_check'
 
 ### Notes
