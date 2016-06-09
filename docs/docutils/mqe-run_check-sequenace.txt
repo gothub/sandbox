@@ -1,4 +1,4 @@
-  @startuml images/mqe-sequence-run_single_check.png
+  @startuml images/mqe-run_check-sequence.png
   skinparam {
         sequenceTitleFontColor black
                 sequenceTitleFontSize 16
