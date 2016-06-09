@@ -23,9 +23,10 @@ check is run. The quality check results are stored in the repository and also re
 
 ### Trigger
 
+A quality check is requested from the DataONE Quality Service.
 
 
 ![Alt text](./images/mqe-sequence-run_single_check.png)
-*Figure 1. Swquence Diagram for Use Case 'run_check'*
+**Figure 1.** Sequence Diagram for Use Case 'run_check'
 
 ### Notes
