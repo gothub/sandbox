@@ -86,7 +86,7 @@
       },
       "dependency": {
           "@id": "schema:requirements",
-          "@type": "xsd:string"
+          "@type": "@id"
       },
       "description":{
          "@id":"schema:description",
