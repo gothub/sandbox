@@ -192,7 +192,7 @@
       },
       "uploadedBy":{
          "@id":"codemeta:uploadedBy",
-         "@type":"xsd:string"
+         "@type":"@id"
       },
       "zippedCode":{
          "@id":"codemeta:zippedCode",
