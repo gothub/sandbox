@@ -2,7 +2,7 @@
    "@context":{
       "schema":"http://schema.org/",
       "dcterms":"http://purl.org/dc/terms/",
-o     "xsd":"http://www.w3.org/2001/XMLSchema#",
+      "xsd":"http://www.w3.org/2001/XMLSchema#",
       "codemeta": "https://codemeta.github.io/terms/",
       "Code":"schema:Code",
       "agent":{
