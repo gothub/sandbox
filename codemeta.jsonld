@@ -143,8 +143,7 @@
           "@type": "xsd:string"
       },
       "programmingLanguage": {
-          "@id": "schema:programmingLanguage",
-          "@type": "xsd:string"
+          "@id": "schema:programmingLanguage"
       },
       "readme":{
          "@id":"codemeta:readme",
@@ -192,7 +191,6 @@
       },
       "uploadedBy":{
          "@id":"codemeta:uploadedBy",
-         "@type":"xsd:string"
       },
       "zippedCode":{
          "@id":"codemeta:zippedCode",
