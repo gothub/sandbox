@@ -45,7 +45,7 @@
       "namespace":"codemeta:namespace",
       "role":{
          "@id":"codemeta:Role",
-         "@type":"@id"
+         "@type":"xsd:anyURI"
       },
       "roleCode":"codemeta:roleCode",
       "buildInstructions":{
