@@ -45,7 +45,7 @@
       "namespace":"codemeta:namespace",
       "role":{
          "@id":"codemeta:Role",
-         "@type":"xsd:anyURI"
+         "@type":"@id"
       },
       "roleCode":"codemeta:roleCode",
       "buildInstructions":{
@@ -190,7 +190,7 @@
          "@type":"xsd:string"
       },
       "uploadedBy":{
-         "@id":"codemeta:uploadedBy",
+         "@id":"codemeta:uploadedBy"
       },
       "zippedCode":{
          "@id":"codemeta:zippedCode",
