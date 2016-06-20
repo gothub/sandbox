@@ -43,10 +43,7 @@
          "@type":"xsd:boolean"
       },
       "namespace":"codemeta:namespace",
-      "role":{
-         "@id":"codemeta:Role",
-         "@type":"@id"
-      },
+      "role":"codemeta:Role",
       "roleCode":"codemeta:roleCode",
       "buildInstructions":{
          "@id":"codemeta:buildInstructions",
