@@ -129,6 +129,141 @@ the equivalent of the original document is returned:
 
 ## Identifying Nodes
 
+The JSON-LD keyword '@id' is used to associate an IRI with a JSON object
+"Used to uniquely identify things that are being described in the document with IRIs or blank node identifiers."
+
+```
+
+When used within JSON-LD context, the `@id` keyword associates a name with an IRI:
+{
+   "@context":
+   {
+      "schema": "http://schema.org/",
+      "person": "schema:Person",
+      "affiliation": {
+         "@id": "schema:affiliation"
+      }
+   },
+  "person": "http://orcid.org/0000-0002-2192-403X",
+  "affiliation": "NCEAS"
+}
+
+When expanded:
+```
+[
+  {
+    "http://schema.org/affiliation": [
+      {
+        "@value": "NCEAS"
+      }
+    ],
+    "http://schema.org/Person": [
+      {
+        "@value": "http://orcid.org/0000-0002-2192-403X"
+      }
+    ]
+  }
+]
+```
+
+Serialized to RDF shows that `@id` used in the `@context` specifies the  
+value the resulting RDF predicate:
+
+```
+_:b0 <http://schema.org/Person> "http://orcid.org/0000-0002-2192-403X" .
+_:b0 <http://schema.org/affiliation> "NCEAS" .
+```
+
+When `@id` is used in the JSON-LD document, it will specify the identifier 
+the RDF subject. as seen when the following document is serialized to RDF:
+
+```
+{
+   "@context":
+   {
+      "schema": "http://schema.org/",
+      "person": "schema:Person",
+      "affiliation":"schema:affiliation",
+      "address":"schema:address"
+   },
+  "person": "http://orcid.org/0000-0002-2192-403X",
+  "affiliation": {
+    "@id":"http://www.nceas.org",
+    "address":"730 State Street, Santa Barbara, CA"
+    
+}
+```
+
+and the RDF:
+
+```
+<http://www.nceas.org> <http://schema.org/address> "730 State Street, Santa Barbara, CA" .
+_:b0 <http://schema.org/Person> "http://orcid.org/0000-0002-2192-403X" .
+_:b0 <http://schema.org/affiliation> <http://www.nceas.org> .
+```
+
+Notice that the `@id` specified in `@context` for `affiliation` has become the
+subject in the RDF. If an `@id` is not assigned to a node in the graph in this way, then
+a blank node identifier is automatically assinged:
+
+```
+{
+   "@context":
+   {
+      "schema": "http://schema.org/",
+      "person": "schema:Person",
+      "affiliation":"schema:affiliation",
+      "address":"schema:address"
+   },
+  "person": "http://orcid.org/0000-0002-2192-403X",
+  "affiliation": {
+    "address":"730 State Street, Santa Barbara, CA"
+    
+  }
+}
+```
+
+is serialized to the RDF with `affiliation` now associated with a
+blank node identifier:
+
+```
+_:b0 <http://schema.org/Person> "http://orcid.org/0000-0002-2192-403X" .
+_:b0 <http://schema.org/affiliation> _:b1 .
+_:b1 <http://schema.org/address> "730 State Street, Santa Barbara, CA" .
+```
+
+
+
+# Notice that this usage of `@id` appears to be in effect by default, as the `person` term
+# that does not specify `@id` is serialized in the same fashion as `affilication` that does
+# specify `@id`.
+
+
+
+
+
+
+
+
+```
+  "@context":
+  {
+    "name": "http://schema.org/name",
+    "image": {
+      "@id": "http://schema.org/image",
+      "@type": "@id"
+    },
+    "homepage": {
+      "@id": "http://schema.org/url",
+      "@type": "@id"
+    }
+  },
+  "name": "Manu Sporny",
+  "homepage": "http://manu.sporny.org/",
+  "image": "http://manu.sporny.org/images/manu.png"
+```
+
+
 [ this section not yet completed, not ready for review ]
 
 ```
