@@ -84,7 +84,6 @@
       },
       "dependency": {
           "@id":"schema:requirements",
-          "@type":"@id"
       },
       "description":{
          "@id":"schema:description",
