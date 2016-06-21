@@ -6,7 +6,8 @@
       "codemeta": "https://codemeta.github.io/terms/",
       "Code":"schema:Code",
       "agent":{
-         "@id":"schema:agent"
+         "@id":"schema:agent",
+         "@type":"@id"
       },
       "controlledTerm": {
           "@id":"codemeta:controlledTerm",
@@ -82,7 +83,8 @@
          "@type":"xsd:dateTime"
       },
       "dependency": {
-          "@id":"schema:requirements"
+          "@id":"schema:requirements",
+          "@type":"@id"
       },
       "description":{
          "@id":"schema:description",
@@ -128,11 +130,11 @@
       },
       "inputs": {
           "@id": "codemeta:inputs",
-          "@type": "xsd:string"
+          "@type": "@id"
       },
       "outputs": {
           "@id": "codemeta:outputs",
-          "@type": "xsd:string"
+          "@type": "@inputs"
       },
       "function": {
           "@id": "codemeta:function",
@@ -143,7 +145,8 @@
           "@type": "xsd:string"
       },
       "programmingLanguage": {
-          "@id": "schema:programmingLanguage"
+          "@id": "schema:programmingLanguage",
+          "@type":"@id"
       },
       "readme":{
          "@id":"codemeta:readme",
@@ -190,7 +193,8 @@
          "@type":"xsd:string"
       },
       "uploadedBy":{
-         "@id":"codemeta:uploadedBy"
+         "@id":"codemeta:uploadedBy",
+         "@type":"@id"
       },
       "zippedCode":{
          "@id":"codemeta:zippedCode",

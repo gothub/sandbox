@@ -1,33 +1,31 @@
 {
    "@context":"https://raw.githubusercontent.com/gothub/sandbox/master/codemeta.jsonld",
    "@type":"Code",
-   "agent": [
-        {
-           "@id":"http://orcid.org/0000-0002-2192-403X",
-           "@type":"Person",
-           "affiliation":"NCEAS",
-           "email":"slaughter@nceas.ucsb.edu",
-           "isCitable":true,
-           "isMaintainer":false,
-           "isRightsHolder":false,
-           "name":"Peter Slaughter",
-           "role": {
-                 "@id":"http://www.role.com/role1",
-                 "namespace":"http://www.ngdc.noaa.gov/metadata/published/xsd/schema/resources/Codelist/gmxCodelists.xml#CI_RoleCode",
-                 "roleCode":"contributor"
-           }
-        },
-        {
-           "@id":"http://orcid.org/0000-0002-3957-2474",
-           "@type":"Organization",
-           "email":"info@ucop.edu",
-           "name":"University of California, Santa Barbara",
-           "role":{
-                 "@id":"http://www.role.com/role2",
-                 "namespace":"http://www.ngdc.noaa.gov/metadata/published/xsd/schema/resources/Codelist/gmxCodelists.xml#CI_RoleCode",
-                 "roleCode":"copyrightHolder"
-           }
-       }
+   "agent":[
+      {
+         "@id":"http://orcid.org/0000-0002-2192-403X",
+         "@type":"Person",
+         "email":"slaughter@nceas.ucsb.edu",
+         "name":"Peter Slaughter",
+         "affiliation":"NCEAS",
+         "isCitable":true,
+         "isMaintainer":false,
+         "isRightsHolder":false,
+         "role": {
+               "namespace":"http://www.ngdc.noaa.gov/metadata/published/xsd/schema/resources/Codelist/gmxCodelists.xml#CI_RoleCode",
+               "roleCode":"contributor"
+         }
+      },
+      {
+         "@id":"http://orcid.org/0000-0002-3957-2474",
+         "@type":"Organization",
+         "email":"info@ucop.edu",
+         "name":"University of California, Santa Barbara",
+         "role":{
+               "namespace":"http://www.ngdc.noaa.gov/metadata/published/xsd/schema/resources/Codelist/gmxCodelists.xml#CI_RoleCode",
+               "roleCode":"copyrightHolder"
+         }
+      }
    ],
   "dependency": [
       {
@@ -67,7 +65,7 @@
    "inputs": [
          "A file describing attributes of the software, with MIME type text/csv",
          "A file containing ambient air temperature values, with mime type application/netcdf"
-   ],
+    ],
    "outputs": "A file containing a scatter plot illustrating software quality affecting quality of life, with mime type image/png",
    "function":"Provides description of software for interoperability",
    "funding":"National Science Foundation grant #012345678",
