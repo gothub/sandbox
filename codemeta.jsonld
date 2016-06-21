@@ -134,7 +134,7 @@
       },
       "outputs": {
           "@id": "codemeta:outputs",
-          "@type": "@inputs"
+          "@type": "@id"
       },
       "function": {
           "@id": "codemeta:function",
