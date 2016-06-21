@@ -1,0 +1,48 @@
+{
+   "@context":{
+      "schema":"http://schema.org/",
+      "dcterms":"http://purl.org/dc/terms/",
+      "xsd":"http://www.w3.org/2001/XMLSchema#",
+      "codemeta": "https://codemeta.github.io/terms/",
+      "Code":"schema:Code",
+      "agent":{
+         "@id":"schema:agent",
+         "@type":"@id"
+      },
+      "role":{
+         "@id":"codemeta:Role",
+         "@type":"@id"
+      },
+      "roleCode":"codemeta:roleCode",
+      "dependency": {
+          "@id":"schema:requirements",
+          "@type":"@id"
+      },
+      "description":{
+         "@id":"schema:description",
+         "@type":"xsd:string"
+      },
+      "inputs": {
+          "@id": "codemeta:inputs",
+          "@type": "@id"
+      },
+      "outputs": {
+          "@id": "codemeta:outputs",
+          "@type": "@id"
+      },
+      "funding": {
+          "@id": "codemeta:funding",
+          "@type": "xsd:string"
+      },
+      "programmingLanguage": {
+          "@id": "schema:programmingLanguage",
+          "@type":"@id"
+      },
+      "uploadedBy":{
+         "@id":"codemeta:uploadedBy",
+         "@type":"@id"
+      },
+      "URL":"schema:URL",
+      "Text":"schema:Text"
+   }
+}
