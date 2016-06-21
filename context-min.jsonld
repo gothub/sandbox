@@ -9,11 +9,79 @@
          "@id":"schema:agent",
          "@type":"@id"
       },
+      "controlledTerm": {
+          "@id":"codemeta:controlledTerm",
+          "@type":"xsd:string"
+      },
+      "person":{
+         "@id":"schema:Person"
+      },
+      "organization":{
+         "@id":"schema:Organization"
+      },
+      "email":{
+         "@id":"schema:email",
+         "@type":"xsd:string"
+      },
+      "name":{
+         "@id":"schema:name",
+         "@type":"xsd:string"
+      },
+      "affiliation":{
+         "@id":"schema:affiliation",
+         "@type":"xsd:string"
+      },
+      "isCitable":{
+         "@id":"codemeta:isCitable",
+         "@type":"xsd:boolean"
+      },
+      "isMaintainer":{
+         "@id":"codemeta:isMaintainer",
+         "@type":"xsd:boolean"
+      },
+      "isRightsHolder":{
+         "@id":"codemeta:isRightsHolder",
+         "@type":"xsd:boolean"
+      },
+      "namespace":"codemeta:namespace",
       "role":{
          "@id":"codemeta:Role",
          "@type":"@id"
       },
       "roleCode":"codemeta:roleCode",
+      "buildInstructions":{
+         "@id":"codemeta:buildInstructions",
+         "@type":"xsd:anyURI"
+      },
+      "downloadLink": 
+      {
+         "@id":"schema:downloadUrl",
+         "@type": "xsd:anyURI"
+      },
+      "contIntegration":{
+         "@id":"codemeta:contIntegration",
+         "@type":"xsd:anyURI"
+      },
+      "identifier":{
+         "@id":"dcterms:identifier",
+         "@type":"xsd:anyURI"
+      },
+      "codeRepository":{
+         "@id":"schema:codeRepository",
+         "@type":"schema:URL"
+      },
+      "dateCreated":{
+         "@id":"schema:dateCreated",
+         "@type":"xsd:dateTime"
+      },
+      "dateModified":{
+         "@id":"schema:dateModified",
+         "@type":"xsd:dateTime"
+      },
+      "datePublished":{
+         "@id":"schema:datePublished",
+         "@type":"xsd:dateTime"
+      },
       "dependency": {
           "@id":"schema:requirements",
           "@type":"@id"
@@ -21,6 +89,44 @@
       "description":{
          "@id":"schema:description",
          "@type":"xsd:string"
+      },
+      "docsCoverage":{
+         "@id":"codemeta:docsCoverage",
+         "@type":"xsd:string"
+      },
+      "downloadCount":{
+         "@id":"codemeta:downloadCount",
+         "@type":"xsd:integer"
+      },
+      "embargoDate":{
+         "@id":"codemeta:embargoDate",
+         "@type":"xsd:dataTime"
+      },
+      "isAutomatedBuild":{
+         "@id":"codemeta:isAutomateBuild",
+         "@type":"xsd:boolean"
+      },
+      "tags":{
+         "@id":"schema:keywords",
+         "@type":"xsd:string"
+      },
+      "objectType":{
+          "@id":"dc:type",
+          "@type":"xsd:string:"
+      },
+      "publisher":{
+          "@id": "schema:publisher",
+          "@type": "xsd:string"
+      },
+      "license":
+      {
+          "@id": "schema:license",
+          "@type": "xsd:string"
+      },
+      "interactionMethod": 
+      {
+          "@id": "codemeta:interactionMethod",
+          "@type": "xsd:string"
       },
       "inputs": {
           "@id": "codemeta:inputs",
@@ -30,6 +136,10 @@
           "@id": "codemeta:outputs",
           "@type": "@id"
       },
+      "function": {
+          "@id": "codemeta:function",
+          "@type": "xsd:string"
+      },
       "funding": {
           "@id": "codemeta:funding",
           "@type": "xsd:string"
@@ -38,9 +148,57 @@
           "@id": "schema:programmingLanguage",
           "@type":"@id"
       },
+      "readme":{
+         "@id":"codemeta:readme",
+         "@type":"xsd:anyURI"
+      },
+      "issueTracker":{
+         "@id":"codemeta:issueTracker",
+         "@type":"xsd:anyURI"
+      },
+      "relatedLink":{
+         "@id":"codemeta:relatedLink",
+         "@type":"xsd:anyURI"
+      },
+      "relatedPublications":{
+         "@id":"codemeta:relatedPublications",
+         "@type":"xsd:string"
+      },
+      "relationship":{
+         "@id":"codemeta:relationship",
+         "@type":"xsd:string"
+      },
+      "softwareCitation":{
+         "@id":"codemeta:softwareCitation",
+         "@type":"xsd:string"
+      },
+      "suggests":{
+         "@id":"schema:suggests",
+         "@type":"xsd:string"
+      },
+      "softwarePaperCitation":{
+         "@id":"codemeta:softwarePaperCitation",
+         "@type":"xsd:string"
+      },
+      "testCoverage":{
+         "@id":"codemeta:testCoverage",
+         "@type":"xsd:integer"
+      },
+      "title":{
+         "@id":"dcterms:title",
+         "@type":"xsd:string"
+      },
+      "version":{
+         "@id":"schema:version",
+         "@type":"xsd:string"
+      },
       "uploadedBy":{
          "@id":"codemeta:uploadedBy",
          "@type":"@id"
+      },
+      "zippedCode":{
+         "@id":"codemeta:zippedCode",
+         "@type":"xsd:anyURI"
       },
       "URL":"schema:URL",
       "Text":"schema:Text"
