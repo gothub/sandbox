@@ -48,7 +48,6 @@
          "@type":"@id"
       },
       "roleCode": "codemeta:roleCode",
-      {
       "buildInstructions":{
          "@id":"codemeta:buildInstructions",
          "@type":"xsd:anyURI"
