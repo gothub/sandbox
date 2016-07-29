@@ -47,9 +47,7 @@
          "@id":"codemeta:Role",
          "@type":"@id"
       },
-      "roleCode":{
-        "@id": "codemeta:roleCode",
-        "@type":"xsd:string"
+      "roleCode": "codemeta:roleCode",
       },
       "buildInstructions":{
          "@id":"codemeta:buildInstructions",
