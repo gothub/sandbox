@@ -6,8 +6,7 @@
       "codemeta": "https://codemeta.github.io/terms/",
       "Code":"schema:Code",
       "agent":{
-         "@id":"schema:agent",
-         "@type":"@id"
+         "@id":"schema:agent"
       },
       "controlledTerm": {
           "@id":"codemeta:controlledTerm",
@@ -48,12 +47,15 @@
          "@id":"codemeta:Role",
          "@type":"@id"
       },
-      "roleCode":"codemeta:roleCode",
+      "roleCode":{
+        "@id": "codemeta:roleCode",
+        "@type":"xsd:string"
+      }
       "buildInstructions":{
          "@id":"codemeta:buildInstructions",
          "@type":"xsd:anyURI"
       },
-      "downloadLink": 
+      "downloadLink":
       {
          "@id":"schema:downloadUrl",
          "@type": "xsd:anyURI"
@@ -93,16 +95,12 @@
          "@id":"codemeta:docsCoverage",
          "@type":"xsd:string"
       },
-      "downloadCount":{
-         "@id":"codemeta:downloadCount",
-         "@type":"xsd:integer"
-      },
       "embargoDate":{
          "@id":"codemeta:embargoDate",
          "@type":"xsd:dataTime"
       },
       "isAutomatedBuild":{
-         "@id":"codemeta:isAutomateBuild",
+         "@id":"codemeta:isAutomatedBuild",
          "@type":"xsd:boolean"
       },
       "tags":{
@@ -122,18 +120,18 @@
           "@id": "schema:license",
           "@type": "xsd:string"
       },
-      "interactionMethod": 
+      "interactionMethod":
       {
           "@id": "codemeta:interactionMethod",
           "@type": "xsd:string"
       },
       "inputs": {
           "@id": "codemeta:inputs",
-          "@type": "@id"
+          "@type": "xsd:string"
       },
       "outputs": {
           "@id": "codemeta:outputs",
-          "@type": "@id"
+          "@type": "xsd:string"
       },
       "function": {
           "@id": "codemeta:function",
@@ -144,8 +142,7 @@
           "@type": "xsd:string"
       },
       "programmingLanguage": {
-          "@id": "schema:programmingLanguage",
-          "@type":"@id"
+          "@id": "schema:programmingLanguage"
       },
       "readme":{
          "@id":"codemeta:readme",
@@ -192,8 +189,7 @@
          "@type":"xsd:string"
       },
       "uploadedBy":{
-         "@id":"codemeta:uploadedBy",
-         "@type":"@id"
+         "@id":"codemeta:uploadedBy"
       },
       "zippedCode":{
          "@id":"codemeta:zippedCode",
