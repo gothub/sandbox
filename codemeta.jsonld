@@ -47,15 +47,12 @@
          "@id":"codemeta:Role",
          "@type":"@id"
       },
-      "roleCode":{
-        "@id": "codemeta:roleCode",
-        "@type":"xsd:string"
-      }
+      "roleCode":"codemeta:roleCode",
       "buildInstructions":{
          "@id":"codemeta:buildInstructions",
          "@type":"xsd:anyURI"
       },
-      "downloadLink":
+      "downloadLink": 
       {
          "@id":"schema:downloadUrl",
          "@type": "xsd:anyURI"
@@ -120,7 +117,7 @@
           "@id": "schema:license",
           "@type": "xsd:string"
       },
-      "interactionMethod":
+      "interactionMethod": 
       {
           "@id": "codemeta:interactionMethod",
           "@type": "xsd:string"
