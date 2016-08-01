@@ -141,6 +141,15 @@
           "@id": "codemeta:funding",
           "@type": "xsd:string"
       },
+      "operatingSystem":{
+          "@id": "schema:operatingSystem"
+      },
+      "packageId":{
+          "@id": "codemeta:packageId"
+      },
+      "packageSystem":{
+          "@id": "codemeta:packageSystem"
+      },
       "programmingLanguage": {
           "@id": "schema:programmingLanguage"
       },
