@@ -49,7 +49,7 @@
       },
       "roleCode":{
         "@id": "codemeta:roleCode",
-         "@type":"xsd:string"
+        "@type":"xsd:string"
       },
       "buildInstructions":{
          "@id":"codemeta:buildInstructions",
@@ -85,7 +85,7 @@
          "@type":"xsd:dateTime"
       },
       "dependency": {
-          "@id":"schema:requirements"
+          "@id":"codemeta:requirement"
       },
       "description":{
          "@id":"schema:description",
