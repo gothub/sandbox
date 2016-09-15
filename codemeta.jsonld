@@ -124,8 +124,7 @@
           "@type": "xsd:string"
       },
       "operatingSystems":{
-          "@id": "schema:operatingSystem",
-          "@type":"xsd:string"
+          "@id": "schema:operatingSystem"
       },
       "packageSystem":{
           "@id": "codemeta:packageSystem",
@@ -155,8 +154,7 @@
          "@type":"xsd:anyURI"
       },
       "relatedPublications":{
-         "@id":"codemeta:relatedPublications",
-         "@type":"xsd:string"
+         "@id":"codemeta:relatedPublications"
       },
       "relationships":{
          "@id":"codemeta:relationships"
@@ -170,11 +168,11 @@
          "@type":"xsd:string"
       },
       "suggests":{
-         "@id":"schema:suggests"
+         "@id":"schema:suggests",
+         "@type":"xsd:string"
       },
       "softwarePaperCitationIdentifiers":{
-         "@id":"codemeta:softwarePaperCitationIdentifiers",
-         "@type":"xsd:string"
+         "@id":"codemeta:softwarePaperCitationIdentifiers"
       },
       "title":{
          "@id":"dcterms:title",
