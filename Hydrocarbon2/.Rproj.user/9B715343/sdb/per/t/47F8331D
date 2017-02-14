@@ -1,0 +1,20 @@
+{
+    "collab_server" : "",
+    "contents" : "# use 32-bit version of R\ninstall.packages(\"httr\")\ninstall.packages(\"plyr\")\ninstall.packages(\"dplyr\")\ninstall.packages(\"XML\")\ninstall.packages(\"curl\")\ninstall.packages(\"rvest\")\ninstall.packages(\"tidyr\")\ninstall.packages(\"stringr\")\ninstall.packages(\"Hmisc\")\ninstall.packages(\"RODBC\")\n\n#load packages (order matters)\nlibrary(httr)\nlibrary(plyr)\nlibrary(dplyr)\nlibrary(XML)\nlibrary(curl)\nlibrary(rvest)\nlibrary(tidyr)\nlibrary(stringr)\nlibrary(Hmisc)\nlibrary(RODBC)\n\n  EVTHD_Packagezipd = tempfile()\n  download.file(\"https://workspace.aoos.org/published/file/48a76993-a061-492d-b775-5a680c70a4ec/2016_EVTHD_Package.zip\",EVTHD_Packagezipd, mode=\"wb\")\n  EVTHD_Packagezip_L = unzip(EVTHD_Packagezipd, list=TRUE)\n\n  EVTHD_Packagezip_accdb <- EVTHD_Packagezip_L[grep(\".accdb\", EVTHD_Packagezip_L$Name),]$Name   # creates list of files I want\n  UNz <- unzip(EVTHD_Packagezipd, EVTHD_Packagezip_accdb)\n  \n  pdf_table_list <- function(file_list){\n    # for every pdf file in the list, do the following \n    conn <- odbcConnectAccess2007(path.expand(file_list)) # establish a connection\n    table_list <- subset(sqlTables(conn), TABLE_TYPE==\"TABLE\") # lists tables in DB\n    return(table_list)\n    \n  }\n  \n  lapply(UNz, pdf_table_list)  # running the function over the two .mdb files\n  \n  conn <- odbcConnectAccess2007(path.expand(\"./2015_EVTHD_Package/EVTHD Feb 2016.accdb\")) # establish a connection\n  Sample <- sqlFetch(conn,\"Sample\")  # read in a table. Need to change the names to download the csv files that we want. ex. sample \n  PAH <- sqlFetch(conn,\"PAH\") \n  CollectionMethods<-sqlFetch(conn, \"Collection Methods\")\n  Alkane<-sqlFetch(conn,\"Alkane\")\n  \n  write.csv(Alkane, \"Alkane.csv\")\n  write.csv(PAH, \"PAH.csv\")\n  write.csv(CollectionMethods, \"Collection Methods.csv\")\n  write.csv(Sample, \"Sample.csv\")\n  \n  close(conn) \n  unlink(EVTHD_Packagezipd)",
+    "created" : 1487095406543.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "1920003178",
+    "id" : "47F8331D",
+    "lastKnownWriteTime" : 1487094464,
+    "last_content_update" : 1487094464,
+    "path" : "~/Projects/DataONE/Provenance/GOA-HydroCarbonDB/jesseChanges/Hydrocarbon2/DataDownload.R",
+    "project_path" : "DataDownload.R",
+    "properties" : {
+    },
+    "relative_order" : 1,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}
