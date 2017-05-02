@@ -50,7 +50,7 @@ methods can be combined by specifying a trace direction of "both".
 plotRuns(rc, seq=1, direction="both")
 ```
 
-![Provenance trace example.](/tmp/trace_06.pdf)
+![Provenance trace example.](./trace_06.pdf)
 
 Next, the listRuns command will be used to retrieve and display the provenance trace, but tracing only in
 the 'forward' direction. Notice that because we are searching in the forward direction, the runs
