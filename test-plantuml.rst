@@ -9,7 +9,11 @@ Design diagrams
 Current MN Indexing
 ~~~~~~~~~~~~~~~~~~~
 
-This sequence diagram shows the member node indexing message/data flow as it existed before the Metacat Storage API.
+
+.. figure:: images/MN-indexing-current.png
+   :align: center
+
+   This sequence diagram shows the member node indexing message/data flow as it existed before the Metacat Storage API.
 
 ..
   @startuml
